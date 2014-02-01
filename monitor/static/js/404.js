@@ -15,11 +15,12 @@ $(document).ready(function(){
 
     selector.click(function(event){
         var destination = $(this).prop('href');
-        // don't do anything else if the origin setting doesn't match
+        /* don't do anything else if the origin setting doesn't match */
         if (_404_SETTINGS.origin == 'different' && sameOrigin(destination))
             return;
         else if (_404_SETTINGS.origin == 'same' && !sameOrigin(destination))
             return;
+        // if we get here, the origin matches
         event.preventDefault();
         ajaxGet(
             {source: source, destination: destination},
@@ -34,7 +35,6 @@ $(document).ready(function(){
         if (!_404_SETTINGS.callback)
             window.location = destination;
     });
-
 });
 
 
