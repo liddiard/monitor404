@@ -2,6 +2,9 @@ import urllib2
 import json
 from django.http import HttpResponse
 from django.views.generic.base import View, TemplateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from .models import UserSite, LogEntry
 
@@ -15,10 +18,33 @@ class SitesView(TemplateView):
     
     template_name = "sites.html"
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SitesView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SitesView, self).get_context_data(**kwargs)
+        context['sites'] = UserSite.objects.filter(user=self.request.user)
+        return context
+
 
 class LogView(TemplateView):
     
     template_name = "log.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LogView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LogView, self).get_context_data(**kwargs)
+        site_slug = self.kwargs.get('slug')
+        site = get_object_or_404(UserSite, slug=site_slug, 
+                                 user=self.request.user)
+        context['site'] = site
+        context['entries'] = LogEntry.objects.filter(site=site)\
+                                     .order_by('-time_last')
+        return context
 
 
 class DemoView(TemplateView):
