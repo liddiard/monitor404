@@ -69,10 +69,10 @@ class MonitorView(AjaxView):
                 error = LogEntry(site=site, source_url=source, 
                                  destination_url=destination)
                 error.save()
-            return self.success(status='404')
+            return self.success(error404=1)
             # send an email
         else:
-            return self.success(status='not 404')
+            return self.success(error404=0)
 
     def is_404(self, url):
         request = urllib2.Request(url)
