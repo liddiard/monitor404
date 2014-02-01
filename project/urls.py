@@ -6,10 +6,15 @@ admin.autodiscover()
 from monitor import views
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'project.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    # api
     url(r'^api/check/$', views.MonitorView.as_view()),
+
+    # pages
+    url(r'^$', views.FrontView.as_view(), name='front'),
+    url(r'^sites/$', views.SitesView.as_view(), name='sites'),
+    url(r'^log/$', views.LogView.as_view(), name='log'),
     url(r'^demo/$', views.DemoView.as_view(), name='demo'),
+
+    # admin
     url(r'^admin/', include(admin.site.urls)),
 )

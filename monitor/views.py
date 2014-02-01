@@ -7,7 +7,18 @@ from .models import UserSite, LogEntry
 
 
 class FrontView(TemplateView):
-    pass
+
+    template_name = "front.html"
+
+
+class SitesView(TemplateView):
+    
+    template_name = "sites.html"
+
+
+class LogView(TemplateView):
+    
+    template_name = "log.html"
 
 
 class DemoView(TemplateView):
