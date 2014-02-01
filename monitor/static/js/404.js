@@ -29,7 +29,7 @@ $(document).ready(function(){
                 if (response.error404 && _404_SETTINGS.callback)
                     _404_SETTINGS.callback;
                 else
-                    console.log(response);
+                    window.location = destination;
             }
         );
         if (!_404_SETTINGS.callback)
