@@ -12,10 +12,11 @@ class UserSite(models.Model):
 
 class LogEntry(models.Model):
     site = models.ForeignKey(UserSite)
-    # status_code = models.CharField(max_length=3)
     source_url = models.URLField()
     destination_url = models.URLField()
-    time = models.DateTimeField(auto_now_add=True)
+    time_first = models.DateTimeField(auto_now_add=True)
+    time_last = models.DateTimeField(auto_now=True)
+    times = models.PositiveIntegerField(default=1)
 
     def __unicode__(self):
         return "%s > %s" % (self.source_url, self.destination_url)

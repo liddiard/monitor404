@@ -10,7 +10,8 @@ admin.site.register(UserSite, UserSiteAdmin)
 
 
 class LogEntryAdmin(admin.ModelAdmin):
-    list_display = ('site', 'source_url', 'destination_url', 'time')
+    list_display = ('site', 'source_url', 'destination_url', 'times', 
+                    'time_first', 'time_last')
 
 
 admin.site.register(LogEntry, LogEntryAdmin)

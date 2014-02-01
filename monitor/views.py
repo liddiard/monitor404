@@ -66,9 +66,12 @@ class MonitorView(AjaxView):
                                        'found.' % host)
         if self.is_404(destination):
             for site in sites:
-                error = LogEntry(site=site, source_url=source, 
-                                 destination_url=destination)
-                error.save()
+                error, created = LogEntry.objects.get_or_create(site=site, 
+                                                             source_url=source, 
+                                                   destination_url=destination)
+                if not created: # it already existed
+                    error.times += 1
+                    error.save()
             return self.success(error404=1)
             # send an email
         else:
