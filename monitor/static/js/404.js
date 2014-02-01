@@ -14,6 +14,7 @@ $(document).ready(function(){
     /* end settings */
 
     selector.click(function(event){
+        console.log(event);
         var destination = $(this).prop('href');
         /* don't do anything else if the origin setting doesn't match */
         if (_404_SETTINGS.origin === 'different' && sameOrigin(destination))
@@ -22,6 +23,9 @@ $(document).ready(function(){
             return;
         // if we get here, the origin matches
         event.preventDefault();
+        if (event.ctrlKey || $(this).prop('target') === ('blank' || '_blank'))
+            var blank = true;
+        else var blank = false;
         ajaxGet(
             {source: source, destination: destination},
             'http://localhost:8000/api/check/',
@@ -29,16 +33,23 @@ $(document).ready(function(){
                 if (response.error404 && _404_SETTINGS.callback)
                     _404_SETTINGS.callback;
                 else
-                    window.location = destination;
+                    openUrl(destination, blank);
             }
         );
         if (!_404_SETTINGS.callback)
-            window.location = destination;
+            openUrl(destination, blank);
     });
 });
 
 
 /* utility functions */
+
+function openUrl(url, blank) {
+    if (blank)
+        window.open(url, '_blank');
+    else
+        window.location = url;
+}
 
 function sameOrigin(url) {
     var link = document.createElement('a'); // TODO: make sure this doesn't cause a memory leak
