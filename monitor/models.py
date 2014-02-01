@@ -5,6 +5,11 @@ from django.contrib.auth.models import User
 class UserSite(models.Model):
     user = models.ForeignKey(User)
     host = models.CharField(max_length=253) # max length of a domain name
+    slug = models.SlugField(max_length=253)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.host)
+        super(UserSite, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return "%s: %s" % (self.user, self.host)
