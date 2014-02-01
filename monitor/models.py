@@ -1,8 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class UserSite(models.Model):
-    user = models.ForeignKey('User')
+    user = models.ForeignKey(User)
     host = models.CharField(max_length=253) # max length of a domain name
 
     def __unicode__(self):
