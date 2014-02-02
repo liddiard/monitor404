@@ -63,6 +63,7 @@ function ajaxGet(params, endpoint, callback_success) {
         type: "GET",
         url: endpoint,
         data: params,
+        crossDomain: true,
         success: callback_success,
         error: function(xhr, textStatus, errorThrown) {
             if (xhr.status != 0)
