@@ -40,6 +40,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'south',
+    'corsheaders',
 )
 
 LOCAL_APPS = (
@@ -55,7 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'monitor.middleware.crossdomainxhr.XsSharing',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 ROOT_URLCONF = 'project.urls'
