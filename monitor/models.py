@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 
-class UserPreferences(models.Model):
+class UserPrefs(models.Model):
     user = models.OneToOneField(User)
     timezone = models.IntegerField(default=0)
     email_interval = models.IntegerField(default=2)
@@ -35,3 +35,11 @@ class LogEntry(models.Model):
 
     def __unicode__(self):
         return "%s > %s" % (self.source_url, self.destination_url)
+
+
+class URLCheck(models.Model):
+    url = models.URLField()
+    last_checked = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.last_checked

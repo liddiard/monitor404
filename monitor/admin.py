@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserPreferences, UserSite, LogEntry
+from .models import UserPreferences, UserSite, LogEntry, URLCheck
 
 
 class UserPreferencesAdmin(admin.ModelAdmin):
@@ -23,3 +23,10 @@ class LogEntryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(LogEntry, LogEntryAdmin)
+
+
+class URLCheckAdmin(admin.ModelAdmin):
+    list_display = ('url', 'last_checked')
+
+
+admin.site.register(URLCheck, URLCheckAdmin)

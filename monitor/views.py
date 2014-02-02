@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
-from .models import UserSite, LogEntry
+from .models import UserSite, LogEntry, URLCheck
 
 
 class FrontView(TemplateView):
@@ -108,6 +108,12 @@ class MonitorView(AjaxView):
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
                                        'found.' % host)
+        check, created = URLCheck.objects.get_or_create(url=destination)
+        if not created:
+            if check.is_stale():
+                check.save()
+            else:
+                return self.success(message='URL check is fresh; aborting.')
         if self.is_404(destination):
             for site in sites:
                 error, created = LogEntry.objects.get_or_create(site=site, 
