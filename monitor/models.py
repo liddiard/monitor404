@@ -1,5 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
+
+class UserPreferences(models.Model):
+    user = models.OneToOneField(User)
+    timezone = models.IntegerField(default=0)
+    email_interval = models.IntegerField(default=2)
+
+    def __unicode__(self):
+        return self.user
 
 
 class UserSite(models.Model):
