@@ -23,7 +23,7 @@ $(document).ready(function(){
             return;
         // if we get here, the origin matches
         event.preventDefault();
-        if (event.ctrlKey || $(this).prop('target') === ('blank' || '_blank'))
+        if (event.ctrlKey || event.metaKey || $(this).prop('target') === ('blank' || '_blank'))
             var blank = true;
         else var blank = false;
         ajaxGet(
