@@ -1,5 +1,6 @@
-import urllib2
 import json
+import urllib2
+from urlparse import urlparse
 from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
@@ -96,7 +97,13 @@ class MonitorView(AjaxView):
         source = request.GET.get('source')
         if source is None:
             return self.key_error('Required key "source" not found in request.')
-        host = request.META.get('HTTP_ORIGIN')
+        origin = request.META.get('HTTP_ORIGIN')
+        try:
+            host = urlparse(origin).netloc
+        except: # NOTICE: catchall
+            return self.error(error="URLError", 
+                              message='Could not parse origin header URL %s.' %\
+                              origin)
         sites = UserSite.objects.filter(host=host) 
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
