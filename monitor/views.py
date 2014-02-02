@@ -39,9 +39,16 @@ class LogView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LogView, self).get_context_data(**kwargs)
         site_slug = self.kwargs.get('slug')
-        site = get_object_or_404(UserSite, slug=site_slug, 
-                                 user=self.request.user)
+        if site_slug is None:
+            try:
+                site = UserSite.objects.filter(user=self.request.user).last()
+            except UserSite.DoesNotExist:
+                site = None
+        else:
+            site = get_object_or_404(UserSite, slug=site_slug, 
+                                     user=self.request.user)
         context['site'] = site
+        context['sites'] = UserSite.objects.filter(user=self.request.user)
         context['entries'] = LogEntry.objects.filter(site=site)\
                                      .order_by('-time_last')
         return context

@@ -4,7 +4,15 @@
 
 <h1>404 error log for {{ site.host }}</h1>
 
-<table>
+<aside>
+    <ul>
+    {% for s in sites %}
+        <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
+    {% endfor %}
+    </ul>
+</aside>
+
+<table class="log">
     <thead>
         <tr>
             <th>Source URL</th>

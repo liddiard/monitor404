@@ -6,7 +6,9 @@
     <title>{% block title %}404{% endblock %}</title>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/css/foundation.min.css" rel="stylesheet" type="text/css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{{ STATIC_URL }}js/404.js"></script>
+    <script src="{{ STATIC_URL }}js/404monitor.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.tablesorter.min.js"></script>
+    <script src="{{ STATIC_URL }}js/main.js"></script>
 </head>
 <body>
 {% block content %}{% endblock %}
