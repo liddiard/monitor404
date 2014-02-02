@@ -1,9 +1,17 @@
 from django.contrib import admin
-from .models import UserSite, LogEntry
+from .models import UserPreferences, UserSite, LogEntry
+
+
+class UserPreferencesAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(UserPreferences, UserPreferencesAdmin)
 
 
 class UserSiteAdmin(admin.ModelAdmin):
     list_display = ('user', 'host')    
+    prepopulated_fields = {'slug': ('host',)}
 
 
 admin.site.register(UserSite, UserSiteAdmin)
