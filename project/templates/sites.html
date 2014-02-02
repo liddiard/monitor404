@@ -2,6 +2,10 @@
 
 {% block content %}
 
-
+<ul>
+{% for site in sites %}
+    <li><a href="{% url 'log' site.slug %}">{{ site.host }}</a></li>
+{% endfor %}
+</ul>
 
 {% endblock %}

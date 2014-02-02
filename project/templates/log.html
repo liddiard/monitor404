@@ -2,6 +2,28 @@
 
 {% block content %}
 
+<h1>404 error log for {{ site.host }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Source URL</th>
+            <th>Destination URL</th>
+            <th>Error first occured</th>
+            <th>Error last occured</th>
+            <th>Total occurences</th>
+        </tr>
+    </thead>
+{% for entry in entries %}
+    <tr>
+        <td><a href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
+        <td><a href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
+        <td>{{ entry.time_first }}</td>
+        <td>{{ entry.time_last }}</td>
+        <td>{{ entry.times }}</td>
+    </tr>
+{% endfor %}
+</table>
 
 
 {% endblock %}
