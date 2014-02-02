@@ -35,8 +35,6 @@ $(document).ready(function(){
                     openUrl(destination, blank);
             }
         );
-        if (!_404_SETTINGS.callback)
-            openUrl(destination, blank);
     });
 });
 
