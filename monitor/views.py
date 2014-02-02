@@ -96,7 +96,7 @@ class MonitorView(AjaxView):
         source = request.GET.get('source')
         if source is None:
             return self.key_error('Required key "source" not found in request.')
-        host = request.META.get('ORIGIN')
+        host = request.META.get('HTTP_ORIGIN')
         sites = UserSite.objects.filter(host=host) 
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
