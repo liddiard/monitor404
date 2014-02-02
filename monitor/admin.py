@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import UserPreferences, UserSite, LogEntry, URLCheck
+from .models import UserPrefs, UserSite, LogEntry, URLCheck
 
 
-class UserPreferencesAdmin(admin.ModelAdmin):
+class UserPrefsAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(UserPreferences, UserPreferencesAdmin)
+admin.site.register(UserPrefs, UserPrefsAdmin)
 
 
 class UserSiteAdmin(admin.ModelAdmin):
