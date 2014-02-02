@@ -14,7 +14,6 @@ $(document).ready(function(){
     /* end settings */
 
     selector.click(function(event){
-        console.log(event);
         var destination = $(this).prop('href');
         /* don't do anything else if the origin setting doesn't match */
         if (_404_SETTINGS.origin === 'different' && sameOrigin(destination))
@@ -31,7 +30,7 @@ $(document).ready(function(){
             'http://monitor404.herokuapp.com/api/check/',
             function(response) {
                 if (response.error404 && _404_SETTINGS.callback)
-                    _404_SETTINGS.callback;
+                    _404_SETTINGS.callback();
                 else
                     openUrl(destination, blank);
             }
