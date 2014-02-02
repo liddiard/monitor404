@@ -61,12 +61,6 @@ class DemoView(TemplateView):
 
 class AjaxView(View):
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return super(AjaxView, self).dispatch(request, *args, **kwargs)
-        else:
-            raise Http404
-
     def json_response(self, **kwargs):
         return HttpResponse(json.dumps(kwargs), content_type="application/json")
 
