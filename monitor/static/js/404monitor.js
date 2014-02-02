@@ -27,7 +27,7 @@ $(document).ready(function(){
         else var blank = false;
         ajaxGet(
             {source: source, destination: destination},
-            'http://monitor404.herokuapp.com/api/check/',
+            'http://ec2-54-213-32-126.us-west-2.compute.amazonaws.com:8000/api/check/',
             function(response) {
                 if (response.error404 && _404_SETTINGS.callback)
                     _404_SETTINGS.callback(destination);
