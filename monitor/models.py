@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -40,6 +42,9 @@ class LogEntry(models.Model):
 class URLCheck(models.Model):
     url = models.URLField()
     last_checked = models.DateTimeField(auto_now=True)
+
+    def is_stale(self):
+        return self.last_checked + timedelta(hours=1) < datetime.now()
 
     def __unicode__(self):
         return self.last_checked
