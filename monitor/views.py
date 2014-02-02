@@ -68,9 +68,7 @@ class AjaxView(View):
             raise Http404
 
     def json_response(self, **kwargs):
-        res = HttpResponse(json.dumps(kwargs), content_type="application/json")
-        res['Access-Control-Allow-Origin'] = '*' # WARNING: unsafe
-        return res
+        return HttpResponse(json.dumps(kwargs), content_type="application/json")
 
     def success(self, **kwargs):
         return self.json_response(result=0, **kwargs)
