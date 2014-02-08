@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Add site{% endblock %}
+{% block title %}Add Site{% endblock %}
 
 {% block content %}
-    <h1>Add site</h1>
+    <h1>Add Site</h1>
     <form method="post" action="">{% csrf_token %}
         {{ form }}
+        <input type="submit" value="Add Site"/>
     </form>
 {% endblock %}
