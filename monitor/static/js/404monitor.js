@@ -40,7 +40,7 @@ $(document).ready(function(){
         this.timeout_id = window.setTimeout(function() {
             console.error('Ajax request to server timed out.');
             openUrl(destination, blank)
-        }, 500);
+        }, 1000);
     });
 });
 
