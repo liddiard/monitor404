@@ -46,4 +46,4 @@ class URLCheck(models.Model):
         return self.last_checked + timedelta(hours=1) < datetime.now()
 
     def __unicode__(self):
-        return self.last_checked
+        return "%s (%s)" % (self.url, self.last_checked)
