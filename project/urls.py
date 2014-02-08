@@ -11,8 +11,11 @@ urlpatterns = patterns('',
 
     # pages
     url(r'^$', views.FrontView.as_view(), name='front'),
-    url(r'^dashboard/(?P<slug>\S+)?$', views.LogView.as_view(), name='log'),
+    url(r'^dashboard(?:/(?P<slug>\S+))?/$', views.LogView.as_view(), name='log'),
+    url(r'^preferences/$', views.LogView.as_view(), name='log'),
     url(r'^site/add/$', views.AddSiteView.as_view(), name='site_add'),
+    url(r'^site/remove/(?P<slug>\S+)/$', views.RemoveSiteView.as_view(), 
+        name='site_remove'),
     url(r'^demo/$', views.DemoView.as_view(), name='demo'),
 
     # admin
