@@ -29,12 +29,18 @@ $(document).ready(function(){
             {source: source, destination: destination},
             'http://404monitor.hliddiard.com/api/check/',
             function(response) {
+                if (this.timeout_id)
+                    window.clearTimeout(this.timeout_id);
                 if (response.error404 && _404_SETTINGS.callback)
                     _404_SETTINGS.callback(destination);
                 else
                     openUrl(destination, blank);
             }
         );
+        this.timeout_id = window.setTimeout(function() {
+            console.error('Ajax request to server timed out.');
+            openUrl(destination, blank)
+        }, 500);
     });
 });
 
@@ -64,7 +70,7 @@ function ajaxGet(params, endpoint, callback_success) {
         success: callback_success,
         error: function(xhr, textStatus, errorThrown) {
             if (xhr.status != 0)
-                console.log("Oh no! Something went wrong. Please report this error: \n"+errorThrown+xhr.status+xhr.responseText);
+                console.error('Oh no! Something went wrong. Please report this error: \n'+errorThrown+xhr.status+xhr.responseText);
         }
     }); 
 }
