@@ -19,7 +19,6 @@
             <th>Destination URL</th>
             <th>Error first occured</th>
             <th>Error last occured</th>
-            <th>Total occurences</th>
         </tr>
     </thead>
 {% for entry in entries %}
@@ -28,7 +27,6 @@
         <td><a href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
         <td>{{ entry.time_first }}</td>
         <td>{{ entry.time_last }}</td>
-        <td>{{ entry.times }}</td>
     </tr>
 {% endfor %}
 </table>
