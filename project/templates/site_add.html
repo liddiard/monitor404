@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Add site{% endblock %}
+
+{% block content %}
+    <h1>Add site</h1>
+    <form method="post" action="">{% csrf_token %}
+        {{ form }}
+    </form>
+{% endblock %}

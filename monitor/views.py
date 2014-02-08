@@ -5,28 +5,17 @@ from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from .models import UserSite, LogEntry, URLCheck
+from .forms import UserSiteForm, UserPrefsForm
 
+
+# pages
 
 class FrontView(TemplateView):
 
     template_name = "front.html"
-
-
-class SitesView(TemplateView):
-    
-    template_name = "sites.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SitesView, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(SitesView, self).get_context_data(**kwargs)
-        context['sites'] = UserSite.objects.filter(user=self.request.user)
-        return context
 
 
 class LogView(TemplateView):
@@ -55,10 +44,31 @@ class LogView(TemplateView):
         return context
 
 
+class AddSiteView(TemplateView):
+
+    template_name = "site_add.html"
+
+    def post(self, request):
+        form = UserSiteForm(request.POST)
+        if form.is_valid():
+            host = form.cleaned_data['host']
+            UserSite.objects.get_or_create(host=host, user=request.user)
+            return redirect('log')
+        else:
+            return redirect(self)
+
+    def get_context_data(self, **kwargs):
+        context = super(AddSiteView, self).get_context_data(**kwargs)
+        context['form'] = UserSiteForm
+        return context
+
+
 class DemoView(TemplateView):
     
     template_name = "demo.html"
 
+
+# abstract base classes
 
 class AjaxView(View):
 
@@ -86,6 +96,8 @@ class AjaxView(View):
     def validation_error(self, message):
         return self.error("ValidationError", message)
 
+
+# api
 
 class MonitorView(AjaxView):
     
