@@ -48,6 +48,10 @@ class AddSiteView(TemplateView):
 
     template_name = "site_add.html"
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AddSiteView, self).dispatch(*args, **kwargs)
+
     def post(self, request):
         form = UserSiteForm(request.POST)
         if form.is_valid():
@@ -67,6 +71,10 @@ class RemoveSiteView(TemplateView):
 
     template_name = "site_remove.html"
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(RemoveSiteView, self).dispatch(*args, **kwargs)
+
     def post(self, request, **kwargs):
         context = self.get_context_data()
         context['site'].delete()
@@ -83,6 +91,10 @@ class RemoveSiteView(TemplateView):
 class UserPrefsView(TemplateView):
 
     template_name = "user_prefs.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserPrefsView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
         form = UserPrefsForm(request.POST)
