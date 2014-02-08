@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Remove Site{% endblock %}
+
+{% block content %}
+    <h1>Remove Site</h1>
+    <form method="post" action="">{% csrf_token %}
+        <p>Are you sure you want to remove <strong>{{ site.host }}</strong>? All logs and data associated with this site will be deleted.</p>
+        <input type="submit" value="Yes, remove {{ site.host }}"/>
+    </form>
+{% endblock %}
