@@ -129,8 +129,8 @@ class AjaxView(View):
     def success(self, **kwargs):
         return self.json_response(result=0, **kwargs)
 
-    def error(self, error_type, message):
-        return self.json_response(result=1, error=error_type, message=message)
+    def error(self, error, message):
+        return self.json_response(result=1, error=error, message=message)
 
     def authentication_error(self):
         return self.error("AuthenticationError", "User is not authenticated.")
@@ -164,9 +164,8 @@ class MonitorView(AjaxView):
         try:
             host = urlparse(origin).netloc
         except: # NOTICE: catchall
-            return self.error(error="URLError", 
-                              message='Could not parse origin header URL %s.' %\
-                              origin)
+            return self.error('URLError', 'Could not parse origin header URL '
+                              '%s.' % origin)
         sites = UserSite.objects.filter(host=host) 
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
