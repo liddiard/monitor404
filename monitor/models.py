@@ -11,7 +11,7 @@ class UserPrefs(models.Model):
     email_interval = models.IntegerField(default=2)
 
     def __unicode__(self):
-        return self.user
+        return str(self.user)
 
 
 class UserSite(models.Model):
