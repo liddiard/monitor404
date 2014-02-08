@@ -33,7 +33,6 @@ class LogEntry(models.Model):
     destination_url = models.URLField()
     time_first = models.DateTimeField(auto_now_add=True)
     time_last = models.DateTimeField(auto_now=True)
-    times = models.PositiveIntegerField(default=1)
 
     def __unicode__(self):
         return "%s > %s" % (self.source_url, self.destination_url)

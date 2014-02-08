@@ -109,7 +109,7 @@ class MonitorView(AjaxView):
             return self.does_not_exist('UserSite matching host %s was not '
                                        'found.' % host)
         check, created = URLCheck.objects.get_or_create(url=destination)
-        if not created:
+        if not created: # check already existed
             if check.is_stale():
                 check.save()
             else:
@@ -120,7 +120,6 @@ class MonitorView(AjaxView):
                                                              source_url=source, 
                                                    destination_url=destination)
                 if not created: # it already existed
-                    error.times += 1
                     error.save()
             return self.success(error404=1)
             # send an email
