@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 
-from .models import UserSite, LogEntry, URLCheck
+from .models import UserPrefs, UserSite, LogEntry, URLCheck
 from .forms import UserSiteForm, UserPrefsForm
 
 
@@ -55,11 +55,50 @@ class AddSiteView(TemplateView):
             UserSite.objects.get_or_create(host=host, user=request.user)
             return redirect('log')
         else:
-            return redirect(self)
+            return redirect('site_add')
 
     def get_context_data(self, **kwargs):
         context = super(AddSiteView, self).get_context_data(**kwargs)
         context['form'] = UserSiteForm
+        return context
+
+
+class RemoveSiteView(TemplateView):
+
+    template_name = "site_remove.html"
+
+    def post(self, request, **kwargs):
+        context = self.get_context_data()
+        context['site'].delete()
+        return redirect('log')
+
+    def get_context_data(self, **kwargs):
+        context = super(RemoveSiteView, self).get_context_data(**kwargs)
+        site_slug = self.kwargs.get('slug')
+        context['site'] = get_object_or_404(UserSite, slug=site_slug, 
+                                            user=self.request.user)
+        return context
+
+
+class UserPrefsView(TemplateView):
+
+    template_name = "user_prefs.html"
+
+    def post(self, request):
+        form = UserPrefsForm(request.POST)
+        if form.is_valid():
+            prefs = UserPrefs.objects.get(user=self.request.user)
+            prefs.timezone = form.cleaned_data['timezone']
+            prefs.email_interval = form.cleaned_data['email_interval']
+            prefs.save() 
+            return redirect('log')
+        else:
+            return redirect('user_prefs')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserPrefsView, self).get_context_data(**kwargs)
+        prefs = UserPrefs.objects.get_or_create(user=self.request.user)[0]
+        context['form'] = UserPrefsForm(instance=prefs)
         return context
 
 
