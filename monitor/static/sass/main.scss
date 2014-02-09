@@ -32,8 +32,13 @@ button.log-clear {
     text-align: right;
 
     .remove-site {
+        color: #777;
         margin: 0 0.8em;
         font-size: 0.8em;
+
+        &:hover {
+            color: red;
+        }
     }
 }
 

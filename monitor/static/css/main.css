@@ -24,8 +24,11 @@ button.log-clear {
   margin-top: 15px;
   text-align: right; }
   .management .remove-site {
+    color: #777;
     margin: 0 0.8em;
     font-size: 0.8em; }
+    .management .remove-site:hover {
+      color: red; }
 
 .subtle {
   opacity: 0.5; }
