@@ -3,6 +3,10 @@ aside {
     padding: 2em;
 }
 
+a.warning {
+    color: red;
+}
+
 h1.table {
     float: left;
 }
@@ -12,7 +16,7 @@ table.log {
 }
 
 button.log-clear {
-    padding: 0.5em 1em;
+    padding: 0.75em 1em;
 }
 
 .primary {
@@ -24,11 +28,29 @@ button.log-clear {
 }
 
 .management {
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: right;
+
+    .remove-site {
+        margin: 0 0.8em;
+        font-size: 0.8em;
+    }
+}
+
+.subtle {
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .break-word {
     word-wrap: break-word;
     word-break: break-all;
+}
+
+#your-sites {
+    display: inline-block;
+    margin-right: 0.2em;
 }

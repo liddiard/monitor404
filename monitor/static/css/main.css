@@ -2,6 +2,9 @@ aside {
   background: #f9f9f9;
   padding: 2em; }
 
+a.warning {
+  color: red; }
+
 h1.table {
   float: left; }
 
@@ -9,7 +12,7 @@ table.log {
   width: 100%; }
 
 button.log-clear {
-  padding: 0.5em 1em; }
+  padding: 0.75em 1em; }
 
 .primary {
   margin-top: 0.5em; }
@@ -18,9 +21,21 @@ button.log-clear {
   max-width: none; }
 
 .management {
-  margin-top: 20px;
+  margin-top: 15px;
   text-align: right; }
+  .management .remove-site {
+    margin: 0 0.8em;
+    font-size: 0.8em; }
+
+.subtle {
+  opacity: 0.5; }
+  .subtle:hover {
+    opacity: 1; }
 
 .break-word {
   word-wrap: break-word;
   word-break: break-all; }
+
+#your-sites {
+  display: inline-block;
+  margin-right: 0.2em; }

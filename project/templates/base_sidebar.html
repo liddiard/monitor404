@@ -5,7 +5,8 @@
 <div class="row">
 
     <aside class="small-3 large-2 column">
-        <a href="{% url 'site_add' %}">&plus; add a site</a>
+        <h4 id="your-sites">Your Sites</h4>
+        <a class="subtle" href="{% url 'site_add' %}">&plus;&nbsp;add&nbsp;site</a>
         <ul class="side-nav">
         {% for s in sites %}
             <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
