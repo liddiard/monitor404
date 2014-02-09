@@ -15,7 +15,16 @@ button.log-clear {
     padding: 0.5em 1em;
 }
 
+.row { // overriding foundation
+    max-width: none;
+}
+
 .management {
     margin-top: 20px;
     text-align: right;
+}
+
+.break-word {
+    word-wrap: break-word;
+    word-break: break-all;
 }

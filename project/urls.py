@@ -8,6 +8,7 @@ from monitor import views
 urlpatterns = patterns('',
     # api
     url(r'^api/check/$', views.MonitorView.as_view()),
+    url(r'^api/log/clear/$', views.ClearLogView.as_view()),
 
     # pages
     url(r'^$', views.FrontView.as_view(), name='front'),

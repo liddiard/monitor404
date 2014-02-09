@@ -215,11 +215,11 @@ class MonitorView(AjaxView):
 class ClearLogView(AuthenticatedAjaxView):
     
     def post(self, request):
-        slug = reqeust.POST.get('slug')
+        slug = request.POST.get('slug')
         try:
             us = UserSite.objects.get(slug=slug, user=request.user)
         except UserSite.DoesNotExist:
             return self.does_not_exist('UserSite matching slug %s does not '
                                        'exist for the current user.' % slug)
         LogEntry.objects.filter(site=us).delete()
-        return self.success('Log entries for site %s deleted.' % slug)
+        return self.success(message='Log entries for site %s deleted.' % slug)

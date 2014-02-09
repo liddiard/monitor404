@@ -2,6 +2,11 @@
 
 {% block content %}
 
+<script>
+    window.context.site = "{{ site.host }}";
+    window.context.slug = "{{ site.slug }}";
+</script>
+
 <div class="row">
 
     <aside class="small-3 large-2 column">
@@ -23,16 +28,16 @@
         <table class="log">
             <thead>
                 <tr>
-                    <th>Source URL</th>
-                    <th>Destination URL</th>
-                    <th>404 first detected</th>
-                    <th>404 last detected</th>
+                    <th style="width: 30%">Source URL</th>
+                    <th style="width: 46%">Destination URL</th>
+                    <th style="width: 12%">404 first detected</th>
+                    <th style="width: 12%">404 last detected</th>
                 </tr>
             </thead>
         {% for entry in entries %}
             <tr>
-                <td><a href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
-                <td><a href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
+                <td><a class="break-word" href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
+                <td><a class="break-word" href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
                 <td>{{ entry.time_first }}</td>
                 <td>{{ entry.time_last }}</td>
             </tr>
