@@ -10,6 +10,7 @@
 <div class="row">
 
     <aside class="small-3 large-2 column">
+        <a href="{% url 'site_add' %}">&plus; add a site</a>
         <ul class="side-nav">
         {% for s in sites %}
             <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
@@ -19,9 +20,19 @@
 
     <div class="small-9 large-10 column">
 
+        {% if messages %}
+            {% for message in messages %}
+                <div data-alert class="alert-box {{ message.tags }}">
+                    {{ message }}
+                    <a href="#" class="close">&times;</a>
+                </div> 
+            {% endfor %}
+        {% endif %}
+
         <h1 class="table">{{ site.host }}</h1>
 
         <div class="management">
+            <a href="{% url 'site_remove' site.slug %}">&times; remove site</a>
             <button class="small log-clear">Clear Log</button>
         </div>
 
@@ -29,9 +40,9 @@
             <thead>
                 <tr>
                     <th style="width: 30%">Source URL</th>
-                    <th style="width: 46%">Destination URL</th>
-                    <th style="width: 12%">404 first detected</th>
-                    <th style="width: 12%">404 last detected</th>
+                    <th style="width: 36%">Destination URL</th>
+                    <th style="width: 17%">404 first detected</th>
+                    <th style="width: 17%">404 last detected</th>
                 </tr>
             </thead>
         {% for entry in entries %}

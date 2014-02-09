@@ -5,11 +5,11 @@ from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 
 from .models import UserPrefs, UserSite, LogEntry, URLCheck
 from .forms import UserSiteForm, UserPrefsForm
-
 
 # pages
 
@@ -57,6 +57,7 @@ class AddSiteView(TemplateView):
         if form.is_valid():
             host = form.cleaned_data['host']
             UserSite.objects.get_or_create(host=host, user=request.user)
+            messages.success(request, 'Site %s was added.' % host)
             return redirect('log')
         else:
             return redirect('site_add')
@@ -77,7 +78,9 @@ class RemoveSiteView(TemplateView):
 
     def post(self, request, **kwargs):
         context = self.get_context_data()
-        context['site'].delete()
+        site = context['site']
+        site.delete()
+        messages.success(request, 'Site %s was removed.' % site.host)
         return redirect('log')
 
     def get_context_data(self, **kwargs):
@@ -103,6 +106,7 @@ class UserPrefsView(TemplateView):
             prefs.timezone = form.cleaned_data['timezone']
             prefs.email_interval = form.cleaned_data['email_interval']
             prefs.save() 
+            messages.success(request, 'Your preferences have been updated.')
             return redirect('log')
         else:
             return redirect('user_prefs')

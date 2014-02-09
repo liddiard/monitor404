@@ -7,7 +7,8 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/css/foundation.min.css" rel="stylesheet" type="text/css">
     <link href="{{ STATIC_URL }}css/main.css" rel="stylesheet" type="text/css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{{ STATIC_URL }}js/404monitor.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/js/foundation.min.js"></script>
+    <!--<script src="{{ STATIC_URL }}js/404monitor.js"></script>-->
     <script src="{{ STATIC_URL }}js/jquery.tablesorter.min.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
 </head>
@@ -15,6 +16,37 @@
 <script>
     window.context = {};
 </script>
+
+{% if user.is_authenticated %}
+<nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="{% url 'front' %}">404monitor</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#">Upgrade/Change Plan</a></li>
+      <li class="has-dropdown">
+        <a href="#">{{ user }}</a>
+        <ul class="dropdown">
+          <li><a href="#">Preferences</a></li>
+          <li><a href="#">Log out</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="#">Getting Started</a></li>
+    </ul>
+  </section>
+</nav>
+{% endif %}
+
 {% block content %}{% endblock %}
 </body>
 </html>
