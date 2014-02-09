@@ -1,0 +1,16 @@
+aside {
+  background: #f9f9f9;
+  padding: 0 2em; }
+
+h1.table {
+  float: left; }
+
+table.log {
+  width: 100%; }
+
+button.log-clear {
+  padding: 0.5em 1em; }
+
+.management {
+  margin-top: 20px;
+  text-align: right; }

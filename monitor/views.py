@@ -148,6 +148,16 @@ class AjaxView(View):
         return self.error("ValidationError", message)
 
 
+class AuthenticatedAjaxView(AjaxView):
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return super(AuthenticatedAjaxView, self).dispatch(request, *args,
+                                                               **kwargs)
+        else:
+            return self.authentication_error()
+
+
 # api
 
 class MonitorView(AjaxView):
@@ -200,3 +210,16 @@ class MonitorView(AjaxView):
                 return False
         else:
             return False
+
+
+class ClearLogView(AuthenticatedAjaxView):
+    
+    def post(self, request):
+        slug = reqeust.POST.get('slug')
+        try:
+            us = UserSite.objects.get(slug=slug, user=request.user)
+        except UserSite.DoesNotExist:
+            return self.does_not_exist('UserSite matching slug %s does not '
+                                       'exist for the current user.' % slug)
+        LogEntry.objects.filter(site=us).delete()
+        return self.success('Log entries for site %s deleted.' % slug)

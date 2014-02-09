@@ -2,34 +2,45 @@
 
 {% block content %}
 
-<h1>404 error log for {{ site.host }}</h1>
+<div class="row">
 
-<aside>
-    <ul>
-    {% for s in sites %}
-        <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
-    {% endfor %}
-    </ul>
-</aside>
+    <aside class="small-3 large-2 column">
+        <ul class="side-nav">
+        {% for s in sites %}
+            <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
+        {% endfor %}
+        </ul>
+    </aside>
 
-<table class="log">
-    <thead>
-        <tr>
-            <th>Source URL</th>
-            <th>Destination URL</th>
-            <th>Error first occured</th>
-            <th>Error last occured</th>
-        </tr>
-    </thead>
-{% for entry in entries %}
-    <tr>
-        <td><a href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
-        <td><a href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
-        <td>{{ entry.time_first }}</td>
-        <td>{{ entry.time_last }}</td>
-    </tr>
-{% endfor %}
-</table>
+    <div class="small-9 large-10 column">
 
+        <h1 class="table">{{ site.host }}</h1>
+
+        <div class="management">
+            <button class="small log-clear">Clear Log</button>
+        </div>
+
+        <table class="log">
+            <thead>
+                <tr>
+                    <th>Source URL</th>
+                    <th>Destination URL</th>
+                    <th>404 first detected</th>
+                    <th>404 last detected</th>
+                </tr>
+            </thead>
+        {% for entry in entries %}
+            <tr>
+                <td><a href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
+                <td><a href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
+                <td>{{ entry.time_first }}</td>
+                <td>{{ entry.time_last }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}
