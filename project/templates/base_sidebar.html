@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div class="row">
+
+    <aside class="small-3 large-2 column">
+        <a href="{% url 'site_add' %}">&plus; add a site</a>
+        <ul class="side-nav">
+        {% for s in sites %}
+            <li><a href="{% url 'log' s.slug %}">{{ s.host }}</a></li>
+        {% endfor %}
+        </ul>
+    </aside>
+
+    <div class="primary small-9 large-10 column">
+        {% if messages %}
+            {% for message in messages %}
+                <div data-alert class="alert-box {{ message.tags }}">
+                    {{ message }}
+                    <a href="#" class="close">&times;</a>
+                </div> 
+            {% endfor %}
+        {% endif %}
+        
+        {% block primary_content %}{% endblock %}
+    </div>
+
+</div>
+
+{% endblock %}

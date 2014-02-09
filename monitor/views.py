@@ -11,6 +11,16 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import UserPrefs, UserSite, LogEntry, URLCheck
 from .forms import UserSiteForm, UserPrefsForm
 
+# abstract base classes
+
+class SidebarView(TemplateView):
+
+    def get_context_data(self, **kwargs):
+        context = super(SidebarView, self).get_context_data(**kwargs)
+        context['sites'] = UserSite.objects.filter(user=self.request.user)
+        return context
+
+
 # pages
 
 class FrontView(TemplateView):
@@ -18,7 +28,7 @@ class FrontView(TemplateView):
     template_name = "front.html"
 
 
-class LogView(TemplateView):
+class LogView(SidebarView):
     
     template_name = "log.html"
 
@@ -38,13 +48,12 @@ class LogView(TemplateView):
             site = get_object_or_404(UserSite, slug=site_slug, 
                                      user=self.request.user)
         context['site'] = site
-        context['sites'] = UserSite.objects.filter(user=self.request.user)
         context['entries'] = LogEntry.objects.filter(site=site)\
                                      .order_by('-time_last')
         return context
 
 
-class AddSiteView(TemplateView):
+class AddSiteView(SidebarView):
 
     template_name = "site_add.html"
 
@@ -68,7 +77,7 @@ class AddSiteView(TemplateView):
         return context
 
 
-class RemoveSiteView(TemplateView):
+class RemoveSiteView(SidebarView):
 
     template_name = "site_remove.html"
 
@@ -91,7 +100,7 @@ class RemoveSiteView(TemplateView):
         return context
 
 
-class UserPrefsView(TemplateView):
+class UserPrefsView(SidebarView):
 
     template_name = "user_prefs.html"
 

@@ -11,6 +11,9 @@ table.log {
 button.log-clear {
   padding: 0.5em 1em; }
 
+.primary {
+  margin-top: 0.5em; }
+
 .row {
   max-width: none; }
 
