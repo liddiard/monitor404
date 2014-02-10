@@ -1,4 +1,5 @@
 {% extends "base_sidebar.html" %}
+{% load tz %}
 
 {% block title %}Dashboard: {{ site.host }} | 404monitor{% endblock %}
 
@@ -31,8 +32,8 @@
         <tr>
             <td><a class="break-word" href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
             <td><a class="break-word" href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
-            <td>{{ entry.time_first }}</td>
-            <td>{{ entry.time_last }}</td>
+            <td>{{ entry.time_first|timezone:user_tz }}</td>
+            <td>{{ entry.time_last|timezone:user_tz }}</td>
         </tr>
     {% endfor %}
     </table>

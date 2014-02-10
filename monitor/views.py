@@ -47,6 +47,8 @@ class LogView(SidebarView):
         else:
             site = get_object_or_404(UserSite, slug=site_slug, 
                                      user=self.request.user)
+        user_prefs = UserPrefs.objects.get(user=self.request.user)
+        context['user_tz'] = user_prefs.timezone
         context['site'] = site
         context['entries'] = LogEntry.objects.filter(site=site)\
                                      .order_by('-time_last')
