@@ -13,8 +13,9 @@ class UserPrefs(models.Model):
     timezone.help_text = "What time zone should logs display in?"
     email_interval = models.PositiveIntegerField(default=2)
     email_interval.help_text = '''
-        How often (in days) do you want to be reminded of an unfixed 404 
-        error?'''
+        Remind me every (x) days of an unfixed 404 link that 
+        people are following.
+        '''
 
     def __unicode__(self):
         return str(self.user)
