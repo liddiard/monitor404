@@ -10,10 +10,10 @@ from timezone_field import TimeZoneField
 class UserPrefs(models.Model):
     user = models.OneToOneField(User)
     timezone = TimeZoneField(default='America/Los_Angeles')
-    timezone.help_text = "In what time zone should logs display?"
+    timezone.help_text = "What time zone should logs display in?"
     email_interval = models.PositiveIntegerField(default=2)
     email_interval.help_text = '''
-        How often (in days) to you want to be reminded of an unfixed 404 
+        How often (in days) do you want to be reminded of an unfixed 404 
         error?'''
 
     def __unicode__(self):
