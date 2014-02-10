@@ -66,7 +66,7 @@ class AddSiteView(SidebarView):
         if form.is_valid():
             host = form.cleaned_data['host']
             UserSite.objects.get_or_create(host=host, user=request.user)
-            messages.success(request, 'Site %s was added.' % host)
+            messages.success(request, 'Added %s.' % host)
             return redirect('log')
         else:
             return redirect('site_add')
@@ -89,7 +89,7 @@ class RemoveSiteView(SidebarView):
         context = self.get_context_data()
         site = context['site']
         site.delete()
-        messages.success(request, 'Site %s was removed.' % site.host)
+        messages.success(request, 'Removed %s.' % site.host)
         return redirect('log')
 
     def get_context_data(self, **kwargs):
@@ -115,7 +115,7 @@ class UserPrefsView(SidebarView):
             prefs.timezone = form.cleaned_data['timezone']
             prefs.email_interval = form.cleaned_data['email_interval']
             prefs.save() 
-            messages.success(request, 'Your preferences have been updated.')
+            messages.success(request, 'Updated preferences.')
             return redirect('log')
         else:
             return redirect('user_prefs')
