@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $(document).foundation();
     $('table.log').tablesorter({sortList: [[3,1]]});
     $('.log-clear').click(function(){
         var confirmed = confirm('Are you sure you want to clear the log for '+window.context.site+'?');
