@@ -10,7 +10,11 @@ from timezone_field import TimeZoneField
 class UserPrefs(models.Model):
     user = models.OneToOneField(User)
     timezone = TimeZoneField(default='America/Los_Angeles')
-    email_interval = models.IntegerField(default=2)
+    timezone.help_text = "In what time zone should logs display?"
+    email_interval = models.PositiveIntegerField(default=2)
+    email_interval.help_text = '''
+        How often (in days) to you want to be reminded of an unfixed 404 
+        error?'''
 
     def __unicode__(self):
         return str(self.user)
@@ -19,6 +23,10 @@ class UserPrefs(models.Model):
 class UserSite(models.Model):
     user = models.ForeignKey(User)
     host = models.CharField(max_length=253) # max length of a domain name
+    host.help_text = '''
+        Full domain name, <strong>including</strong> subdomain (if any), and 
+        <strong>excluding</strong> a leading "http://", etc.<br/><br/>Examples: 
+        example.com, news.ycombinator.com, www.404monitor.io'''
     slug = models.SlugField(max_length=253)
 
     def save(self, *args, **kwargs):

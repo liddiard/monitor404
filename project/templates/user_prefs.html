@@ -4,7 +4,7 @@
 
 {% block primary_content %}
     <h1>Preferences</h1>
-    <form method="post" action="">{% csrf_token %}
+    <form class="medium" method="post" action="">{% csrf_token %}
         {{ form }}
         <input type="submit" class="button" value="Save"/>
     </form>

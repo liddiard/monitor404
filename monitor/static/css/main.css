@@ -11,8 +11,21 @@ h1.table {
 table.log {
   width: 100%; }
 
+form.medium {
+  max-width: 300px; }
+  form.medium input {
+    margin-bottom: 0; }
+
 button.log-clear {
   padding: 0.75em 1em; }
+
+span.helptext {
+  display: block;
+  line-height: 1.2;
+  font-size: 0.8em;
+  color: gray;
+  margin-bottom: 2em;
+  margin-top: -0.5em; }
 
 .primary {
   margin-top: 0.5em; }
