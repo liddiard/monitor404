@@ -9,30 +9,41 @@
     window.context.slug = "{{ site.slug }}";
 </script>
 
-<h1 class="table">{{ site.host }}</h1>
+{% if site %}
 
-<div class="management">
-    <a class="subtle remove-site" href="{% url 'site_remove' site.slug %}">&times; remove site</a>
-    <button class="small log-clear">Clear Log</button>
-</div>
+    <h1 class="table">{{ site.host }}</h1>
 
-<table class="log">
-    <thead>
+    <div class="management">
+        <a class="subtle remove-site" href="{% url 'site_remove' site.slug %}">&times; remove site</a>
+        <button class="small log-clear">Clear Log</button>
+    </div>
+
+    <table class="log">
+        <thead>
+            <tr>
+                <th style="width: 30%">Source URL</th>
+                <th style="width: 36%">Destination URL</th>
+                <th style="width: 17%">404 first detected</th>
+                <th style="width: 17%">404 last detected</th>
+            </tr>
+        </thead>
+    {% for entry in entries %}
         <tr>
-            <th style="width: 30%">Source URL</th>
-            <th style="width: 36%">Destination URL</th>
-            <th style="width: 17%">404 first detected</th>
-            <th style="width: 17%">404 last detected</th>
+            <td><a class="break-word" href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
+            <td><a class="break-word" href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
+            <td>{{ entry.time_first }}</td>
+            <td>{{ entry.time_last }}</td>
         </tr>
-    </thead>
-{% for entry in entries %}
-    <tr>
-        <td><a class="break-word" href="{{ entry.source_url }}" target="blank">{{ entry.source_url }}</a></td>
-        <td><a class="break-word" href="{{ entry.destination_url }}" target="blank">{{ entry.destination_url }}</a></td>
-        <td>{{ entry.time_first }}</td>
-        <td>{{ entry.time_last }}</td>
-    </tr>
-{% endfor %}
-</table>
+    {% endfor %}
+    </table>
+
+{% else %}
+
+    <div class="panel">
+        <h4>You're not monitoring any sites yet!</h4>
+        <p>To get started, <a href="{% url 'site_add' %}">add a site</a>. If you're looking for a little more info, check out the documentation.</p>
+    </div>
+
+{% endif %}
 
 {% endblock %}
