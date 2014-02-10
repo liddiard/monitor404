@@ -13,6 +13,21 @@ h1.table {
 
 table.log {
     width: 100%;
+
+    th {
+        background: url(../img/bg.gif) no-repeat center right;
+        cursor: pointer;
+
+        &.headerSortUp {
+            background-image: url(../img/asc.gif);
+            background-color: #eaeaea;
+        }
+
+        &.headerSortDown {
+            background-image: url(../img/desc.gif);
+            background-color: #eaeaea;
+        }
+    }
 }
 
 form.medium {

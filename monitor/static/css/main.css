@@ -10,6 +10,15 @@ h1.table {
 
 table.log {
   width: 100%; }
+  table.log th {
+    background: url(../img/bg.gif) no-repeat center right;
+    cursor: pointer; }
+    table.log th.headerSortUp {
+      background-image: url(../img/asc.gif);
+      background-color: #eaeaea; }
+    table.log th.headerSortDown {
+      background-image: url(../img/desc.gif);
+      background-color: #eaeaea; }
 
 form.medium {
   max-width: 300px; }
