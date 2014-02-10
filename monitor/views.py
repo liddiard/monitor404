@@ -66,7 +66,7 @@ class AddSiteView(SidebarView):
         if form.is_valid():
             host = form.cleaned_data['host']
             UserSite.objects.get_or_create(host=host, user=request.user)
-            messages.success(request, '%s added.' % host)
+            messages.success(request, '%s added!' % host)
             return redirect('log')
         else:
             return redirect('site_add')
@@ -115,7 +115,7 @@ class UserPrefsView(SidebarView):
             prefs.timezone = form.cleaned_data['timezone']
             prefs.email_interval = form.cleaned_data['email_interval']
             prefs.save() 
-            messages.success(request, 'Preferences updated.')
+            messages.success(request, 'Preferences updated!')
             return redirect('log')
         else:
             return redirect('user_prefs')
