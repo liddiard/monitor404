@@ -41,6 +41,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'south',
     'corsheaders',
+    'timezone_field',
 )
 
 LOCAL_APPS = (

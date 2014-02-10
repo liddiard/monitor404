@@ -7,6 +7,7 @@ billiard==3.3.0.14
 celery==3.1.8
 dj-database-url==0.2.2
 django-cors-headers==0.12
+django-timezone-field==1.0
 kombu==3.0.11
 psycopg2==2.5.2
 pytz==2013.9

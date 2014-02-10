@@ -4,10 +4,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+from timezone_field import TimeZoneField
+
 
 class UserPrefs(models.Model):
     user = models.OneToOneField(User)
-    timezone = models.IntegerField(default=0)
+    timezone = TimeZoneField(default='America/Los_Angeles')
     email_interval = models.IntegerField(default=2)
 
     def __unicode__(self):
