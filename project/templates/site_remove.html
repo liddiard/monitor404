@@ -4,7 +4,7 @@
 
 {% block primary_content %}
     <h1>Remove Site</h1>
-    <form class="medium" method="post" action="">{% csrf_token %}
+    <form method="post" action="">{% csrf_token %}
         <p>Are you sure you want to remove <strong>{{ site.host }}</strong>? All logs and data associated with this site will be deleted.</p>
         <input type="submit" class="alert button" value="Yes, remove {{ site.host }}"/>
     </form>
