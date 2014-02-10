@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 
+from project.tasks import check_404
 from .models import UserPrefs, UserSite, LogEntry, URLCheck
 from .forms import UserSiteForm, UserPrefsForm
 
@@ -195,36 +196,8 @@ class MonitorView(AjaxView):
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
                                        'found.' % host)
-        check, created = URLCheck.objects.get_or_create(url=destination)
-        if not created: # check already existed
-            if check.is_stale():
-                check.save()
-            else:
-                return self.success(message='URL check is fresh; aborting.')
-        if self.is_404(destination):
-            for site in sites:
-                error, created = LogEntry.objects.get_or_create(site=site, 
-                                                             source_url=source, 
-                                                   destination_url=destination)
-                if not created: # it already existed
-                    error.save()
-            return self.success(error404=1)
-            # send an email
-        else:
-            return self.success(error404=0)
-
-    def is_404(self, url):
-        request = urllib2.Request(url)
-        request.get_method = lambda : 'HEAD'
-        try:
-            urllib2.urlopen(request)
-        except urllib2.HTTPError, e:
-            if e.code == 404:
-                return True
-            else:
-                return False
-        else:
-            return False
+        check_404.delay(destination, sites)
+        return self.success(status='success', message='Link queued for check.')
 
 
 class ClearLogView(AuthenticatedAjaxView):
