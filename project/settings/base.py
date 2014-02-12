@@ -94,5 +94,5 @@ TEMPLATE_DIRS = (
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
-BROKER_URL = 'amqp://guest@localhost:5672//'
+CELERY_RESULT_BACKEND = 'amqp://'
+BROKER_URL = 'amqp://'
