@@ -1,11 +1,15 @@
 from __future__ import absolute_import
+import urllib2
 
-from celery import shared_task
+# from celery import shared_task
+from celery.task import task
+
+from .models import URLCheck, LogEntry
 
 
 # utils
 
-def is_404(self, url):
+def is_404(url):
     request = urllib2.Request(url)
     request.get_method = lambda : 'HEAD'
     try:
@@ -18,8 +22,8 @@ def is_404(self, url):
 
 # tasks
 
-@shared_task
-def check_404(destination, sites):
+@task()
+def check_404(source, destination, sites):
     check, created = URLCheck.objects.get_or_create(url=destination)
     if not created: # check already existed
         if check.is_stale():
