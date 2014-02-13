@@ -36,8 +36,8 @@ class LogView(SidebarView):
     def dispatch(self, *args, **kwargs):
         return super(LogView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(LogView, self).get_context_data(**kwargs)
+    def get(self, request, **kwargs):
+        context = self.get_context_data()
         site_slug = self.kwargs.get('slug')
         if site_slug is None:
             try:
@@ -47,12 +47,17 @@ class LogView(SidebarView):
         else:
             site = get_object_or_404(UserSite, slug=site_slug, 
                                      user=self.request.user)
-        user_prefs = UserPrefs.objects.get(user=self.request.user)
+        try:
+            user_prefs = UserPrefs.objects.get(user=self.request.user)
+        except UserPrefs.DoesNotExist:
+            messages.info(request, 'Welcome to 404monitor! Save your '
+                          'preferences to get started.')
+            return redirect('user_prefs')
         context['user_tz'] = user_prefs.timezone
         context['site'] = site
         context['entries'] = LogEntry.objects.filter(site=site)\
                                      .order_by('-time_last')
-        return context
+        return self.render_to_response(context)
 
 
 class AddSiteView(SidebarView):
