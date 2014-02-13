@@ -15,7 +15,6 @@ $(document).ready(function(){
 
     selector.click(function(event){
         var destination = $(this).prop('href');
-        var blank = false;
 
         /* don't do anything if the url starts with a hash or is empty */
         if (destination[0] === '#' || destination.length === 0)
@@ -28,11 +27,9 @@ $(document).ready(function(){
             return;
         // if we get here, the origin matches
 
-        event.preventDefault();
-
         /* make the ctrl/Apple/meta key still work as expected */
-        if (event.ctrlKey || event.metaKey || $(this).prop('target') === ('_blank' || 'blank'))
-            blank = true;
+        var blank = event.ctrlKey || event.metaKey || $(this).prop('target') === ('_blank' || 'blank');
+        if (!blank) event.preventDefault();
 
         var timer_id;
         ajaxGet(
@@ -58,10 +55,7 @@ $(document).ready(function(){
 /* utility functions */
 
 function openUrl(url, blank) {
-    if (blank)
-        window.open(url, '_blank');
-    else
-        window.location = url;
+    if (!blank) window.location = url;
 }
 
 function sameOrigin(url) {
