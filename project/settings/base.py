@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
     'corsheaders',
     'timezone_field',
     'djcelery',
+    'kombu.transport.django'
 )
 
 LOCAL_APPS = (
@@ -94,5 +95,4 @@ TEMPLATE_DIRS = (
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CELERY_RESULT_BACKEND = 'amqp://'
-BROKER_URL = 'amqp://'
+BROKER_URL = 'django://'
