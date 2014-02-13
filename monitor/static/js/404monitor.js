@@ -31,7 +31,7 @@ $(document).ready(function(){
         event.preventDefault();
 
         /* make the ctrl/Apple/meta key still work as expected */
-        if (event.ctrlKey || event.metaKey || $(this).prop('target') === ('blank' || '_blank'))
+        if (event.ctrlKey || event.metaKey || $(this).prop('target') === ('_blank' || 'blank'))
             blank = true;
 
         var timer_id;
