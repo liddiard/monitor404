@@ -186,8 +186,6 @@ class MonitorView(AjaxView):
         if source is None:
             return self.key_error('Required key "source" not found in request.')
         origin = request.META.get('HTTP_ORIGIN')
-        if origin is None:
-            origin = 'http://localhost:8000/' # NOTICE: for debug only
         try:
             host = urlparse(origin).netloc
         except: # NOTICE: catchall
@@ -195,7 +193,7 @@ class MonitorView(AjaxView):
                               '%s.' % origin)
         sites = UserSite.objects.filter(host=host) 
         if not sites:
-            return self.does_not_exist('UserSite matching host %s was not '
+            return self.does_not_exist('UserSite matching host "%s" was not '
                                        'found.' % host)
         check_404.delay(source, destination, sites)
         return self.success(status='success', message='Link queued for check.')
@@ -208,7 +206,7 @@ class ClearLogView(AuthenticatedAjaxView):
         try:
             us = UserSite.objects.get(slug=slug, user=request.user)
         except UserSite.DoesNotExist:
-            return self.does_not_exist('UserSite matching slug %s does not '
+            return self.does_not_exist('UserSite matching slug "%s" does not '
                                        'exist for the current user.' % slug)
         LogEntry.objects.filter(site=us).delete()
         return self.success(message='Log entries for site %s deleted.' % slug)
