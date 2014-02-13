@@ -1,5 +1,4 @@
 import json
-import urllib2
 from urlparse import urlparse
 from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
@@ -8,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 
-from project.tasks import check_404
+from .tasks import check_404
 from .models import UserPrefs, UserSite, LogEntry, URLCheck
 from .forms import UserSiteForm, UserPrefsForm
 
@@ -187,6 +186,8 @@ class MonitorView(AjaxView):
         if source is None:
             return self.key_error('Required key "source" not found in request.')
         origin = request.META.get('HTTP_ORIGIN')
+        if origin is None:
+            origin = 'http://localhost:8000/' # NOTICE: for debug only
         try:
             host = urlparse(origin).netloc
         except: # NOTICE: catchall
@@ -196,7 +197,7 @@ class MonitorView(AjaxView):
         if not sites:
             return self.does_not_exist('UserSite matching host %s was not '
                                        'found.' % host)
-        check_404.delay(destination, sites)
+        check_404.delay(source, destination, sites)
         return self.success(status='success', message='Link queued for check.')
 
 
