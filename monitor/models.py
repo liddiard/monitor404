@@ -8,6 +8,10 @@ from timezone_field import TimeZoneField
 
 
 class UserPrefs(models.Model):
+    
+    class Meta:
+        verbose_name_plural = "User prefs"
+
     user = models.OneToOneField(User)
     timezone = TimeZoneField(default='America/Los_Angeles')
     timezone.help_text = "What time zone should logs display in?"
@@ -39,6 +43,10 @@ class UserSite(models.Model):
 
 
 class LogEntry(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Log entries"
+
     site = models.ForeignKey(UserSite)
     source_url = models.URLField()
     destination_url = models.URLField()
