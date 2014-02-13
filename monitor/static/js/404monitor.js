@@ -15,29 +15,39 @@ $(document).ready(function(){
 
     selector.click(function(event){
         var destination = $(this).prop('href');
+        var blank = false;
+
+        /* don't do anything if the url starts with a hash or is empty */
+        if (destination[0] === '#' || destination.length === 0)
+            return;
+
         /* don't do anything else if the origin setting doesn't match */
         if (_404_SETTINGS.origin === 'different' && sameOrigin(destination))
             return;
         else if (_404_SETTINGS.origin === 'same' && !sameOrigin(destination))
             return;
         // if we get here, the origin matches
+
         event.preventDefault();
+
+        /* make the ctrl/Apple/meta key still work as expected */
         if (event.ctrlKey || event.metaKey || $(this).prop('target') === ('blank' || '_blank'))
-            var blank = true;
-        else var blank = false;
+            blank = true;
+
+        var timer_id;
         ajaxGet(
             {source: source, destination: destination},
             'http://404monitor.hliddiard.com/api/check/',
             function(response) {
-                if (this.timeout_id)
-                    window.clearTimeout(this.timeout_id);
+                if (timer_id)
+                    window.clearTimeout(timer_id);
                 if (response.error404 && _404_SETTINGS.callback)
                     _404_SETTINGS.callback(destination);
                 else
                     openUrl(destination, blank);
             }
         );
-        this.timeout_id = window.setTimeout(function() {
+        timer_id = window.setTimeout(function() {
             console.error('Ajax request to server timed out.');
             openUrl(destination, blank)
         }, 1000);
