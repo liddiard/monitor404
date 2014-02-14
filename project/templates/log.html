@@ -38,6 +38,10 @@
     {% endfor %}
     </table>
 
+    {% if not entries %}
+        <h6 class="no-entries subheader">No 404 errors!</h6>
+    {% endif %}
+
 {% else %}
 
     <div class="panel">
