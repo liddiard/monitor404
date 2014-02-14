@@ -34,7 +34,7 @@ $(document).ready(function(){
         var timer_id;
         ajaxGet(
             {source: source, destination: destination},
-            'http://404monitor.hliddiard.com/api/check/',
+            'http://localhost:8000/api/check/',
             function(response) {
                 if (timer_id)
                     window.clearTimeout(timer_id);

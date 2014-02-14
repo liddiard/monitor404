@@ -42,15 +42,16 @@ class UserSite(models.Model):
     requests_today = models.PositiveIntegerField(default=0)
 
     def max_requests(self):
-        if self.user.plan == 'b':
+        up = UserPrefs.objects.get_or_create(user=self.user)[0]
+        if up.plan == 'b':
             return 200
-        elif self.user.plan == 'p':
+        elif up.plan == 'p':
             return 2000
         else:
             return 20000
 
     def is_eligible(self):
-        return self.requests_today < self.max_requests
+        return self.requests_today < self.max_requests()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.host)
