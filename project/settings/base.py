@@ -28,7 +28,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '.hliddiard.com', '.404monitor.io']
 
 
 # Application definition
@@ -48,7 +48,8 @@ THIRD_PARTY_APPS = (
     'timezone_field',
     'djcelery',
     'kombu.transport.django',
-    'djrill'
+    'djrill',
+    'registration'
 )
 
 LOCAL_APPS = (
@@ -94,7 +95,12 @@ TEMPLATE_DIRS = (
     BASE_DIR+'/templates',
 )
 
+# corsheaders
 CORS_ORIGIN_ALLOW_ALL = True
 
+# celery
 BROKER_URL = 'django://'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+# registration
+ACCOUNT_ACTIVATION_DAYS = 7
