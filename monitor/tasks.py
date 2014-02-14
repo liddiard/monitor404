@@ -60,6 +60,14 @@ def send_error_email(source, destination, site):
 
 @task()
 def check_404(source, destination, sites):
+    eligible_site = False
+    for site in sites:
+        if site.is_eligible():
+            site.requests_today += 1
+            site.save()
+            eligible_site = True
+    if not eligible_site:
+        return -2 # no eligible sites
     check, created = URLCheck.objects.get_or_create(url=destination)
     if not created: # check already existed
         if check.is_stale():
@@ -68,15 +76,15 @@ def check_404(source, destination, sites):
         else:
             return -1 # url check is fresh; no further processing required
     if is_404(destination):
-        print sites
         for site in sites:
-            error, created = LogEntry.objects.get_or_create(site=site, 
-                                                         source_url=source, 
-                                               destination_url=destination)
-            if created:
-                send_error_email(source, destination, site)
-            else: # it already existed
-                error.save()
+            if site.is_eligible():
+                error, created = LogEntry.objects.get_or_create(site=site, 
+                                                             source_url=source, 
+                                                   destination_url=destination)
+                if created:
+                    send_error_email(source, destination, site)
+                else: # it already existed
+                    error.save()
         return 1 # url 404'd!
     else:
         return 0 # check performed b/c it wasn't cached

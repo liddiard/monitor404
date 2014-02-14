@@ -34,6 +34,23 @@ class UserSite(models.Model):
         example.com, news.ycombinator.com, www.404monitor.io'''
     slug = models.SlugField(max_length=253)
     requests_today = models.PositiveIntegerField(default=0)
+    PLAN_CHOICES = (
+        ('b', 'Basic'),
+        ('p', 'Premium'),
+        ('e', 'Enterprise')
+    )
+    plan = models.CharField(max_length=1, choices=PLAN_CHOICES, default='b')
+
+    def max_requests(self):
+        if self.plan == 'b':
+            return 200
+        elif self.plan == 'p':
+            return 2000
+        else:
+            return 20000
+
+    def is_eligible(self):
+        return self.requests_today < self.max_requests
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.host)
