@@ -88,3 +88,13 @@ def check_404(source, destination, sites):
         return 1 # url 404'd!
     else:
         return 0 # check performed b/c it wasn't cached
+
+@task()
+def clear_cache_and_requests_count():
+    ''' should be run once a day, preferably during low-traffic hours'''
+    all_sites = UserSite.objects.all()
+    for site in all_sites:
+        site.requests_today = 0
+        site.save()
+    URLCheck.objects.all().delete()
+    return 0
