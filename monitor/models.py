@@ -33,6 +33,7 @@ class UserSite(models.Model):
         <strong>excluding</strong> a leading "http://", etc.<br/><br/>Examples: 
         example.com, news.ycombinator.com, www.404monitor.io'''
     slug = models.SlugField(max_length=253)
+    requests_today = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.host)
