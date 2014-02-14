@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Account activated | 404monitor{% endblock %}
+
+{% block content %}
+    {% if account %}
+        <h1>Account activated!</h1>
+        <p>Thanks for creating an account! Start using 404monitor by logging in above.</p>
+    {% else %}
+        <h1>Sorry, something went wrong.</h1>
+        <p>Your account was not activated. Either your activation link was incorrect, or
+        the activation key for your account has expired; activation keys are
+        only valid for {{ expiration_days }} days after
+        registration.</p>
+    {% endif %}
+{% endblock %}
