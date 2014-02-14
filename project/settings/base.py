@@ -97,3 +97,4 @@ TEMPLATE_DIRS = (
 CORS_ORIGIN_ALLOW_ALL = True
 
 BROKER_URL = 'django://'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
