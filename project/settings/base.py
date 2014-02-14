@@ -47,7 +47,8 @@ THIRD_PARTY_APPS = (
     'corsheaders',
     'timezone_field',
     'djcelery',
-    'kombu.transport.django'
+    'kombu.transport.django',
+    'djrill'
 )
 
 LOCAL_APPS = (
