@@ -8,6 +8,9 @@ a.warning {
 h1.table {
   float: left; }
 
+span.quota {
+  vertical-align: text-bottom; }
+
 table.log {
   width: 100%; }
   table.log th {
