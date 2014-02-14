@@ -191,6 +191,8 @@ class MonitorView(AjaxView):
         if source is None:
             return self.key_error('Required key "source" not found in request.')
         origin = request.META.get('HTTP_ORIGIN')
+        if origin is None:
+            origin = "http://localhost:8000/"
         try:
             host = urlparse(origin).netloc
         except: # NOTICE: catchall
