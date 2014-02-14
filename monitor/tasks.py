@@ -22,7 +22,7 @@ def is_404(url):
     else:
         return False
 
-def send_error_email(site, source, destination):
+def send_error_email(source, destination, site):
     email_message = '''
         Hi %(username)s,
 
@@ -33,7 +33,7 @@ def send_error_email(site, source, destination):
         which resulted in the error.
 
         For more information, check the %(site)s dashboard on 404monitor:
-        %(dashboard_url)s.
+        http://404monitor.io%(dashboard_url)s.
 
         Thanks,
         The 404monitor team
@@ -48,12 +48,11 @@ def send_error_email(site, source, destination):
     }
 
     send_mail(
-        '404monitor: 404 Error Detected on %s' % site,
+        '404monitor: 404 Error Detected on %s' % site.host,
         email_message % context,
         'notification@404monitor.io',
-        [user.email],
+        [site.user.email],
         fail_silently=False,
-        html_message=None
     )
 
 
@@ -69,12 +68,13 @@ def check_404(source, destination, sites):
         else:
             return -1 # url check is fresh; no further processing required
     if is_404(destination):
+        print sites
         for site in sites:
             error, created = LogEntry.objects.get_or_create(site=site, 
                                                          source_url=source, 
                                                destination_url=destination)
             if created:
-                send_error_email(site, source, destination)
+                send_error_email(source, destination, site)
             else: # it already existed
                 error.save()
         return 1 # url 404'd!
