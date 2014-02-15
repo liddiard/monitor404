@@ -1,1 +1,1 @@
-python manage.py celeryd -l info --settings=project.settings.local
+python manage.py celeryd -l info --beat --settings=project.settings.local
