@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Create an account | 404monitor{% endblock %}
 
-{% block content %}
+{% block registration_content %}
 
 {% if form.errors %}
 <p class="error">Please correct the errors below:{{ form.non_field_errors }}</p>

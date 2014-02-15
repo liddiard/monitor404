@@ -23,5 +23,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # registration
-    (r'^accounts/', include('registration.backends.default.urls')),
+    (r'^accounts/', include('project.urls_accounts')),
 )
