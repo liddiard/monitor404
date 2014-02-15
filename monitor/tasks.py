@@ -36,7 +36,7 @@ For more information, check the %(site)s dashboard on 404monitor:
 http://404monitor.io%(dashboard_url)s.
 
 Thanks,
-The 404monitor team
+The 404monitor Team
     '''
 
     context = {

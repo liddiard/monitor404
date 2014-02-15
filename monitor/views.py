@@ -48,7 +48,7 @@ class LogView(SidebarView):
             site = get_object_or_404(UserSite, slug=site_slug, 
                                      user=self.request.user)
         if not site.is_eligible():
-            messages.warning(request, '%s has reached its request quota '
+            messages.warning(request, '%s has reached your daily request quota '
                              'limit for the day and is no longer checking '
                              'links for errors. Protect your site against '
                              'new 404s by upgrading your plan.' % site.host)
