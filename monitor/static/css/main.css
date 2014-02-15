@@ -4,6 +4,10 @@ aside {
 
 a.warning {
   color: red; }
+a.forgot-password {
+  font-size: 0.7em;
+  margin-top: -1em;
+  display: block; }
 
 h1.table {
   float: left; }
