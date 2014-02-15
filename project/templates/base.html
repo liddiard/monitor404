@@ -36,7 +36,7 @@
         <a href="#">{{ user }}</a>
         <ul class="dropdown">
           <li><a href="{% url 'user_prefs' %}">Preferences</a></li>
-          <li><a href="#">Log out</a></li>
+          <li><a href="{% url 'auth_logout' %}">Log out</a></li>
         </ul>
       </li>
     </ul>
