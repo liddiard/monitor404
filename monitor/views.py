@@ -1,7 +1,9 @@
 import json
 from urlparse import urlparse
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
+from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 from .tasks import check_404
 from .models import UserPrefs, UserSite, LogEntry, URLCheck
-from .forms import UserSiteForm, UserPrefsForm
+from .forms import UserSiteForm, UserPrefsForm, ConfirmCurrentUserForm
 
 # abstract base classes
 
@@ -142,6 +144,37 @@ class UserPrefsView(SidebarView):
 class DemoView(TemplateView):
     
     template_name = "demo.html"
+
+
+class AccountDeleteView(FormView):
+
+    template_name = "registration/account_delete_form.html" 
+    form_class = ConfirmCurrentUserForm
+    success_url = reverse_lazy('account_delete_complete')
+
+    def get_form_kwargs(self):
+        kwargs = super(AccountDeleteView, self).get_form_kwargs()
+        kwargs.update({
+            'request' : self.request
+        })
+        return kwargs
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return redirect('front')
+        return super(AccountDeleteView, self).dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        user = form.cleaned_data.get('user')
+        user.is_active = False
+        user.save()
+        django_logout(self.request)
+        return redirect('account_delete_complete')
+
+
+class AccountDeleteCompleteView(TemplateView):
+    
+    template_name = "registration/account_delete_complete.html"
 
 
 # abstract base classes
