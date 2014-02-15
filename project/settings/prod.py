@@ -15,4 +15,4 @@ STATIC_URL = S3_URL
 MANDRILL_API_KEY = os.environ['MANDRILL_API_KEY']
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
-SERVER_EMAIL = "404monitor <no-reply@404monitor.io>"
+DEFAULT_FROM_EMAIL = "404monitor <no-reply@404monitor.io>"
