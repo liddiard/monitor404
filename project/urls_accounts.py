@@ -1,11 +1,19 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as auth_views
 
+from registration.backends.default.views import RegistrationView
+from registration.forms import RegistrationFormUniqueEmail
 from monitor import views
+
+class RegistrationViewUniqueEmail(RegistrationView):
+    form_class = RegistrationFormUniqueEmail
+
 
 urlpatterns = patterns('',
 
-      #override the default urls
+      # override the default urls
+      url(r'^register/$', RegistrationViewUniqueEmail.as_view(),
+                          name='registration_register'),
       url(r'^password/change/$',
                     auth_views.password_change,
                     name='password_change'),
@@ -29,6 +37,6 @@ urlpatterns = patterns('',
       url(r'^delete/complete/$', views.AccountDeleteCompleteView.as_view(),
                     name='account_delete_complete'),
 
-      #and now add the registration urls
+      # and now add the registration urls
       url(r'', include('registration.backends.default.urls')),
 )
