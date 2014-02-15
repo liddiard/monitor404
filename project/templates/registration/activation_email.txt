@@ -1,4 +1,4 @@
-Thanks for creating an account with kikl.co! Just follow the link below to activate your account.
+Thanks for creating an account with 404monitor. Click the link below to activate your account:
 
 http://404monitor.io/accounts/activate/{{ activation_key }}/
 
