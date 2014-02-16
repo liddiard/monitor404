@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 # from celery import shared_task
 from celery.task import task
 
-from .models import URLCheck, LogEntry
+from .models import URLCheck, LogEntry, UserSite
 
 
 # utils
