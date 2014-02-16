@@ -101,6 +101,17 @@ span.helptext {
     }
 }
 
+.alert-box {
+    a {
+        color: inherit;
+        text-decoration: underline;
+
+        &.close {
+            text-decoration: none;
+        }
+    }
+}
+
 .no-entries {
     text-align: center;
 }
@@ -116,6 +127,15 @@ span.helptext {
 .break-word {
     word-wrap: break-word;
     word-break: break-all;
+}
+
+.plans {
+    margin-top: 2em;
+
+    .plan {
+        float: left;
+        margin: 0 20px 20px 0;
+    }
 }
 
 #your-sites {

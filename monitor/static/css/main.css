@@ -69,6 +69,12 @@ span.helptext {
     .management .remove-site:hover {
       color: red; }
 
+.alert-box a {
+  color: inherit;
+  text-decoration: underline; }
+  .alert-box a.close {
+    text-decoration: none; }
+
 .no-entries {
   text-align: center; }
 
@@ -80,6 +86,12 @@ span.helptext {
 .break-word {
   word-wrap: break-word;
   word-break: break-all; }
+
+.plans {
+  margin-top: 2em; }
+  .plans .plan {
+    float: left;
+    margin: 0 20px 20px 0; }
 
 #your-sites {
   display: inline-block;

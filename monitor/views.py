@@ -53,7 +53,9 @@ class LogView(SidebarView):
             messages.warning(request, '%s has reached your daily request quota '
                              'limit for the day and is no longer checking '
                              'links for errors. Protect your site against '
-                             'new 404s by upgrading your plan.' % site.host)
+                             'new 404s by <a href="%s">upgrading your '
+                             'plan</a>.' % (site.host, 
+                             reverse_lazy('plan_change')))
         try:
             user_prefs = UserPrefs.objects.get(user=self.request.user)
         except UserPrefs.DoesNotExist:
@@ -144,6 +146,11 @@ class UserPrefsView(SidebarView):
 class DemoView(TemplateView):
     
     template_name = "demo.html"
+
+
+class ChangePlanView(SidebarView):
+    
+    template_name = "plan_change.html"
 
 
 class AccountDeleteView(FormView):

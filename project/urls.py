@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     # pages
     url(r'^$', views.FrontView.as_view(), name='front'),
+    url(r'^plan/change/$', views.ChangePlanView.as_view(), name='plan_change'),
     url(r'^dashboard(?:/(?P<slug>\S+))?/$', views.LogView.as_view(), name='log'),
     url(r'^preferences/$', views.UserPrefsView.as_view(), name='user_prefs'),
     url(r'^site/add/$', views.AddSiteView.as_view(), name='site_add'),
