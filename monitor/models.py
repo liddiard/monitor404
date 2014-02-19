@@ -13,8 +13,8 @@ class UserPrefs(models.Model):
         verbose_name_plural = "User prefs"
 
     user = models.OneToOneField(User)
-    timezone = TimeZoneField(default='America/Los_Angeles')
-    timezone.help_text = "What time zone should logs display in?"
+    time_zone = TimeZoneField(default='America/Los_Angeles')
+    time_zone.help_text = "What time zone should logs display in?"
     email_interval = models.PositiveIntegerField(default=2)
     email_interval.help_text = '''
         Remind me every (x) days of an unfixed 404 link that 
