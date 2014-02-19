@@ -62,7 +62,7 @@ class LogView(SidebarView):
             messages.info(request, 'Welcome to 404monitor! Save your '
                           'preferences to get started.')
             return redirect('user_prefs')
-        context['user_tz'] = user_prefs.timezone
+        context['user_tz'] = user_prefs.time_zone
         context['site'] = site
         context['entries'] = LogEntry.objects.filter(site=site)\
                                      .order_by('-time_last')

@@ -15,7 +15,7 @@ class UserPrefsForm(forms.ModelForm):
 
     class Meta:
         model = UserPrefs
-        fields = ['timezone', 'email_interval']
+        fields = ['time_zone', 'email_404', 'email_quota']
 
 
 class ConfirmCurrentUserForm(forms.Form):
