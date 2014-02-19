@@ -15,11 +15,12 @@ class UserPrefs(models.Model):
     user = models.OneToOneField(User)
     time_zone = TimeZoneField(default='America/Los_Angeles')
     time_zone.help_text = "What time zone should logs display in?"
-    email_interval = models.PositiveIntegerField(default=2)
-    email_interval.help_text = '''
-        Remind me every (x) days of an unfixed 404 link that 
-        people are following.
-        '''
+    email_404 = models.BooleanField(default=True)
+    email_404.help_text = "Do you want to be notified of new 404 errors?"
+    email_quota = models.BooleanField(default=True)
+    email_quota.help_text = '''
+        Do you want to be notified if one of your sites goes over your daily 
+        request quota?'''
     PLAN_CHOICES = (
         ('b', 'Basic'),
         ('p', 'Premium'),
