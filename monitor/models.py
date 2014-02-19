@@ -19,7 +19,7 @@ class UserPrefs(models.Model):
     email_404.help_text = "Do you want to be notified of new 404 errors?"
     email_quota = models.BooleanField(default=True)
     email_quota.help_text = '''
-        Do you want to be notified if one of your sites goes over your daily 
+        Do you want to be notified if one of your sites goes over its daily 
         request quota?'''
     PLAN_CHOICES = (
         ('b', 'Basic'),

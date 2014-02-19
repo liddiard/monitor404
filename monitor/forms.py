@@ -16,6 +16,10 @@ class UserPrefsForm(forms.ModelForm):
     class Meta:
         model = UserPrefs
         fields = ['time_zone', 'email_404', 'email_quota']
+        labels = {
+            'email_404': '404 error email',
+            'email_quota': 'Over quota email'
+        }
 
 
 class ConfirmCurrentUserForm(forms.Form):

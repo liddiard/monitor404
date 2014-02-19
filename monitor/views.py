@@ -128,8 +128,9 @@ class UserPrefsView(SidebarView):
         form = UserPrefsForm(request.POST)
         if form.is_valid():
             prefs = UserPrefs.objects.get(user=self.request.user)
-            prefs.timezone = form.cleaned_data['timezone']
-            prefs.email_interval = form.cleaned_data['email_interval']
+            prefs.time_zone = form.cleaned_data['time_zone']
+            prefs.email_404 = form.cleaned_data['email_404']
+            prefs.email_quota = form.cleaned_data['email_quota']
             prefs.save() 
             messages.success(request, 'Preferences updated.')
             return redirect('log')
