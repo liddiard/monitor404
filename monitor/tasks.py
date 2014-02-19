@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 # from celery import shared_task
 from celery.task import task
 
-from .models import URLCheck, LogEntry, UserSite
+from .models import URLCheck, LogEntry, UserSite, UserPrefs
 
 
 # utils
@@ -63,8 +63,6 @@ def check_404(source, destination, sites):
     eligible_site = False
     for site in sites:
         if site.is_eligible():
-            site.requests_today += 1
-            site.save()
             eligible_site = True
     if not eligible_site:
         return -2 # no eligible sites
@@ -78,13 +76,21 @@ def check_404(source, destination, sites):
     if is_404(destination):
         for site in sites:
             if site.is_eligible():
+                site.requests_today += 1
+                site.save()
                 error, created = LogEntry.objects.get_or_create(site=site, 
                                                              source_url=source, 
                                                    destination_url=destination)
                 if created:
-                    send_error_email(source, destination, site)
+                    prefs = UserPrefs.objects.get_or_create(user=site.user)[0]
+                    if prefs.email_404:
+                        send_error_email(source, destination, site)
                 else: # it already existed
                     error.save()
+                if not site.is_eligible(): # site just reached quota
+                    prefs = UserPrefs.objects.get_or_create(user=site.user)[0]
+                    if prefs.email_quota:
+                        pass # send an over quota email
         return 1 # url 404'd!
     else:
         return 0 # check performed b/c it wasn't cached
