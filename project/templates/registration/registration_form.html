@@ -1,6 +1,6 @@
 {% extends "registration/base.html" %}
 
-{% block title %}Create an account | 404monitor{% endblock %}
+{% block title %}Create an account | monitor404{% endblock %}
 
 {% block registration_content %}
 
@@ -10,7 +10,7 @@
 
 <h1>Create an account</h1>
 
-<p>Welcome to 404monitor! Create an account by filling out the form below.</p>
+<p>Welcome to monitor404! Create an account by filling out the form below.</p>
 
 <form method="post" action="{% url 'registration_register' %}" class="account create">{% csrf_token %}
 
