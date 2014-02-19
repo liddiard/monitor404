@@ -19,7 +19,6 @@
     window.context = {};
 </script>
 
-{% if user.is_authenticated %}
 <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
@@ -31,7 +30,8 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="active"><a href="#">Docs &amp; Support</a></li>
+      {% if user.is_authenticated %}
+      <li class="active"><a href="{% url 'log' %}">Dashboard</a></li>
       <li class="has-dropdown">
         <a href="#">{{ user }}</a>
         <ul class="dropdown">
@@ -39,15 +39,20 @@
           <li><a href="{% url 'auth_logout' %}">Log out</a></li>
         </ul>
       </li>
+      {% else %}
+      <li class="active"><a href="{% url 'auth_login' %}">Log in</a></li>
+      {% endif %}
     </ul>
 
     <!-- Left Nav Section -->
     <ul class="left">
-      <li><a href="{% url 'log' %}">Dashboard</a></li>
+      <li><a href="#">Documentation</a></li>
+      {% if not user.is_authenticated %}
+      <li><a href="{% url 'registration_register' %}">Create an account</a></li>
+      {% endif %}
     </ul>
   </section>
 </nav>
-{% endif %}
 
 {% block content %}{% endblock %}
 </body>
