@@ -49,32 +49,33 @@ $(document).ready(function(){
             openUrl(destination, blank)
         }, 500);
     });
+
+
+    /* utility functions */
+
+    function openUrl(url, blank) {
+        if (!blank) window.location = url;
+    }
+
+    function sameOrigin(url) {
+        var link = document.createElement('a'); // TODO: make sure this doesn't cause a memory leak
+        link.href = url;
+        if (location.host === link.host) return true;
+        else return false;
+    }
+
+    function ajaxGet(params, endpoint, callback_success) {
+        $.ajax({
+            type: "GET",
+            url: endpoint,
+            data: params,
+            crossDomain: true,
+            success: callback_success,
+            error: function(xhr, textStatus, errorThrown) {
+                if (xhr.status != 0)
+                    console.error('Oh no! Something went wrong. Please report this error: \n'+errorThrown+xhr.status+xhr.responseText);
+            }
+        }); 
+    }
+
 });
-
-
-/* utility functions */
-
-function openUrl(url, blank) {
-    if (!blank) window.location = url;
-}
-
-function sameOrigin(url) {
-    var link = document.createElement('a'); // TODO: make sure this doesn't cause a memory leak
-    link.href = url;
-    if (location.host === link.host) return true;
-    else return false;
-}
-
-function ajaxGet(params, endpoint, callback_success) {
-    $.ajax({
-        type: "GET",
-        url: endpoint,
-        data: params,
-        crossDomain: true,
-        success: callback_success,
-        error: function(xhr, textStatus, errorThrown) {
-            if (xhr.status != 0)
-                console.error('Oh no! Something went wrong. Please report this error: \n'+errorThrown+xhr.status+xhr.responseText);
-        }
-    }); 
-}
