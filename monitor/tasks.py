@@ -55,6 +55,43 @@ The monitor404 team
         fail_silently=False,
     )
 
+def send_quota_email(site):
+    email_message = '''
+Hi %(username)s,
+
+We wanted you to know that your site, %(site)s, reached its limit of 
+%(max_requests)s link checks today, which means it won't be checking links 
+for 404 errors for the rest of the day.
+
+To get more requests, you can change your plan to Premium or Enterprise to get 
+10x or 100x as many requests per day, respectively. Take a look at plan 
+options and pricing here: 
+%(plan_change_url)s.
+
+If you'd prefer to not receive emails when one of your sites exceeds its quota, 
+you can change your notification preferences here:
+http://monitor404.com%(user_prefs_url)s.
+
+Thanks,
+The monitor404 team
+    '''
+
+    context = {
+        'username': site.user.username,
+        'site': site.host,
+        'max_requests': site.max_requests,
+        'plan_change_url': reverse('plan_change'),
+        'user_prefs_url': reverse('user_prefs')
+    }
+
+    send_mail(
+        'Over quota on %s' % site.host,
+        email_message % context,
+        'monitor404 <notification@monitor404.com>',
+        [site.user.email],
+        fail_silently=False,
+    )
+
 
 # tasks
 
@@ -90,7 +127,7 @@ def check_404(source, destination, sites):
                 if not site.is_eligible(): # site just reached quota
                     prefs = UserPrefs.objects.get_or_create(user=site.user)[0]
                     if prefs.email_quota:
-                        pass # send an over quota email
+                        send_quota_email(site)
         return 1 # url 404'd!
     else:
         return 0 # check performed b/c it wasn't cached
