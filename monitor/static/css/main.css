@@ -55,7 +55,7 @@ span.helptext {
 .primary {
   margin-top: 0.5em; }
 
-.row {
+.row.fullwidth {
   max-width: none; }
 
 .management {
