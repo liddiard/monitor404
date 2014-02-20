@@ -27,14 +27,14 @@ $(document).ready(function(){
             return;
         // if we get here, the origin matches
 
-        /* make the ctrl/Apple/meta key still work as expected */
+        /* make the ctrl/Apple/meta keys work as expected */
         var blank = event.ctrlKey || event.metaKey || $(this).prop('target') === ('_blank' || 'blank');
         if (!blank) event.preventDefault();
 
         var timer_id;
         ajaxGet(
             {source: source, destination: destination},
-            'http://localhost:8000/api/check/',
+            'http://monitor404.com/api/check/',
             function(response) {
                 if (timer_id)
                     window.clearTimeout(timer_id);
