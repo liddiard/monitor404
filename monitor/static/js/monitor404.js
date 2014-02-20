@@ -38,10 +38,7 @@ $(document).ready(function(){
             function(response) {
                 if (timer_id)
                     window.clearTimeout(timer_id);
-                if (response.error404 && _404_SETTINGS.callback)
-                    _404_SETTINGS.callback(destination);
-                else
-                    openUrl(destination, blank);
+                openUrl(destination, blank);
             }
         );
         timer_id = window.setTimeout(function() {
