@@ -59,7 +59,7 @@ class LogView(SidebarView):
         try:
             user_prefs = UserPrefs.objects.get(user=self.request.user)
         except UserPrefs.DoesNotExist:
-            messages.info(request, 'Welcome to 404monitor! Save your '
+            messages.info(request, 'Welcome to monitor404! Save your '
                           'preferences to get started.')
             return redirect('user_prefs')
         context['user_tz'] = user_prefs.time_zone
