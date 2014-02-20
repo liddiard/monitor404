@@ -7,7 +7,7 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-AWS_STORAGE_BUCKET_NAME = '404monitor'
+AWS_STORAGE_BUCKET_NAME = 'monitor404'
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 STATIC_URL = S3_URL
@@ -15,4 +15,4 @@ STATIC_URL = S3_URL
 MANDRILL_API_KEY = os.environ['MANDRILL_API_KEY']
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
-DEFAULT_FROM_EMAIL = "404monitor <no-reply@404monitor.io>"
+DEFAULT_FROM_EMAIL = "monitor404 <no-reply@monitor404.com>"
