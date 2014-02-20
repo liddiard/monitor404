@@ -26,17 +26,17 @@ def send_error_email(source, destination, site):
     email_message = '''
 Hi %(username)s,
 
-404monitor detected a HTTP 404 error on %(site)s.
+monitor404 just detected a HTTP 404 error on %(site)s.
 
 A user on the page: %(source)s
 clicked on a link to: %(destination)s,
 which resulted in the error.
 
 For more information, check the %(site)s dashboard on 404monitor:
-http://404monitor.io%(dashboard_url)s.
+http://monitor404.com%(dashboard_url)s.
 
 Thanks,
-The 404monitor Team
+The monitor404 team
     '''
 
     context = {
@@ -50,7 +50,7 @@ The 404monitor Team
     send_mail(
         'Error detected on %s' % site.host,
         email_message % context,
-        '404monitor <notification@404monitor.io>',
+        'monitor404 <notification@monitor404.com>',
         [site.user.email],
         fail_silently=False,
     )
