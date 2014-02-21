@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^site/add/$', views.AddSiteView.as_view(), name='site_add'),
     url(r'^site/remove/(?P<slug>\S+)/$', views.RemoveSiteView.as_view(), 
         name='site_remove'),
+    url(r'^docs/$', views.DocsView.as_view(), name='docs'),
     url(r'^demo/$', views.DemoView.as_view(), name='demo'),
 
     # admin

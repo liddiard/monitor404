@@ -154,6 +154,11 @@ class ChangePlanView(SidebarView):
     template_name = "plan_change.html"
 
 
+class DocsView(TemplateView):
+
+    template_name = "docs.html"
+
+
 class AccountDeleteView(FormView):
 
     template_name = "registration/account_delete_form.html" 
