@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/monokai_sublime.css"/>
+<script src="{{ STATIC_URL }}js/highlight.pack.js"></script>
     
 <div class="row">
 
@@ -16,8 +19,13 @@
 
     <div class="primary small-12 medium-9 large-10 column">
         <h1>monitor404 Documentation</h1>
+        <hr/>
         <h2>Getting Started</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <pre><code>
+var test = "Lorem ispum";
+var happy = 40;
+        </pre></code>
     </div>
 
 </div>

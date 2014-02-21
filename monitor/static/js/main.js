@@ -2,9 +2,11 @@ $(document).ready(function(){
 
     $(document).foundation();
 
+    $('form input:visible').first().focus();
+
     $('table.log').tablesorter({sortList: [[3,1]]});
 
-    $('form input:visible').first().focus();
+    hljs.initHighlightingOnLoad();
 
     $('.log-clear').click(function(){
         var confirmed = confirm('Are you sure you want to clear the log for '+window.context.site+'?');
