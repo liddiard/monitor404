@@ -149,9 +149,39 @@ class DemoView(TemplateView):
     template_name = "demo.html"
 
 
-class ChangePlanView(SidebarView):
+class ComparePlansView(SidebarView):
+    
+    template_name = "plan_compare.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ComparePlansView, self).get_context_data(**kwargs)
+        context['user_prefs'] = UserPrefs.objects\
+                                    .get_or_create(user=self.request.user)[0]
+        return context
+
+
+class ChangePlansView(SidebarView):
     
     template_name = "plan_change.html"
+
+    def dispatch(self, *args, **kwargs):
+        if self.kwargs.get('plan') is None:
+            return redirect('plan_compare')
+        return super(AccountDeleteView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ChangePlansView, self).get_context_data(**kwargs)
+        plan = self.kwargs.get('plan')
+        if plan == 'b':
+            pass
+        elif plan == 'p':
+            pass
+        elif plan == 'e':
+            pass
+        else:
+            raise Http404
+        return context
+        
 
 
 class DocsView(TemplateView):

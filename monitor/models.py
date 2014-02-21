@@ -7,6 +7,15 @@ from django.template.defaultfilters import slugify
 from timezone_field import TimeZoneField
 
 
+class Plan(models.Mode):
+    name = models.CharField(max_length=32, unique=True)
+    max_requests = models.PositiveIntegerField()
+    price = models.FloatField()
+
+    def __unicode__(self):
+        return self.name
+
+
 class UserPrefs(models.Model):
     
     class Meta:
