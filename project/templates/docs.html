@@ -136,7 +136,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <p>When you set up monitor404, you include a tiny JavaScript file on pages you want to monitor. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
 
         <h3>Won't that Ajax request slow things down?</h3>
-        <p>Yes, but not perceptibly. The request/response is so quick that it's virtually unnoticable, even if you're looking for it.</p>
+        <p>Yes, but not perceptibly. The request/response is so quick that it's virtually unnoticable, even if you're looking for it. Don't believe us? All the links on monitor404.com use monitor404. (why wouldn't they?) You tell me if it's negatively affecting your browsing experience.</p>
 
         <h3>So every time a user clicks on a link, it's double the requests?</h3>
         <p>No, for two reasons:
@@ -145,12 +145,24 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
             <li>monitor404 only issues HEAD requests, which are significantly lighter than GET requests because they only return the HTTP headers and not the body content of the page.</li>
         </ol></p>
 
+        <h3>Do all servers respond to HEAD requests with the same status code they respond to GET requests?</h3>
+        <p>According to the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">W3 spec</a>, they must. However, a few sites don't honor this and return 404 to all HEAD requests, or to all requests sent from an EC2 IP address (which monitor404 runs on). Consequently, monitor404 has had to ignore 404s from a few sites. An exhaustive list of ignored sites follows:
+        <ul>
+            {% for site in sites_to_skip %}
+            <li>{{ site.host }}</li>
+            {% endfor %}
+        </ul></p>
+        <p>If you find another site that always responds with 404s and needs to be ignored, you have suggestions on how to better mitigate this issue, or find this to be a dealbreaker, please let us know. We're very open to suggestions and feedback.</p>
+
         <h3>What happens if your server goes down?</h3>
         <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
 
+        <h3>How is monitor404 licensed? Can I run it on my own server?</h3>
+        <p>Yep! monitor404 is open source, released under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license</a>. Essentially, the license allows you to share/use/modify monitor404's code, as long as you attribute the work properly and don't use it for commercial purposes (subject to other terms; see the license for full details). If you're interested in commercial use, please contact us.</p>
+
         <h2>Support</h2>
         <p>Have you tried all of the above troubleshooting and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by our FAQ? Maybe you just want to praise our wonderful product.</p>
-        <p>Whatever the case, our support is here to lend a listening ear and a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you! Send us an email at: <pre>support (at) monitor404 (dot) com</pre></p>
+        <p>Whatever the case, our support is here to lend a listening ear and a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you! Send us an email at {% if user.is_authenticated %}<a href="mailto:support@monitor404.com">support@monitor404.com</a>.{% else %}<pre>support (at) monitor404 (dot) com</pre>{% endif %}</p>
 
     </div>
 </div>
