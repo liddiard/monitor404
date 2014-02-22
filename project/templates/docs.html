@@ -6,17 +6,24 @@
 
 <link rel="stylesheet" href="{{ STATIC_URL }}css/monokai_sublime.css"/>
 <script src="{{ STATIC_URL }}js/highlight.pack.js"></script>
-    
+<script src="{{ STATIC_URL }}js/anchorific.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.primary').anchorific();
+        hljs.initHighlightingOnLoad();
+    });
+</script>
+
 <div class="row">
 
     <aside class="hide-for-small medium-3 large-2 column">
         <h5>Contents</h5>
         <ul class="side-nav">
-            <li><a href="#">Getting Started</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Troubleshooting</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Support</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#support">Support</a></li>
         </ul>
     </aside>
 
@@ -31,8 +38,8 @@
             There are three steps to setting up your site with monitor404:
             <ol>
                 <li><a href="{% url 'site_add' %}">Add your site</a> to the monitor404 dashboard.</li>
-                <li>Include the script on the pages you want to monitor.</li>
-                <li>Configure which links on pages you want to be monitor. (optional &ndash; all are monitored by default.)</li>
+                <li><a href="#including-the-script">Include the script</a> on the pages you want to monitor.</li>
+                <li><a href="#settings">Configure which links</a> on pages you want to be monitor. (optional &ndash; all are monitored by default.)</li>
             </ol>
         </p>
         <h3>Adding a site</h3>
@@ -42,7 +49,7 @@
         <p>To monitor links on a page, include the following script anywhere on the page:</p> 
         <pre><code>&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;</pre></code>
         <p>The script requires <a href="http://jquery.com/">jQuery</a>, which you should also load somewhere on the page. It's tested with jQuery version 1.10.2 but will probably work with other versions.</p>
-        <p>That's it! monitor404 will check all links on which a user clicks for 404 errors. It will log errors in the <a href="{% url 'log' %}">dashboard</a> and, by default, send you an email if it finds a broken link. If you only want to monitor certain kinds of links, refer to the next section.</p>
+        <p>That's it! monitor404 will check all links on which a user clicks for 404 errors. It will log errors in the <a href="{% url 'log' %}">dashboard</a> and, by default, send you an email if it finds a broken link. If you only want to monitor certain kinds of links, refer to the <a href="#settings">next section</a>.</p>
 
         <h2>Settings</h2>
         <p>monitor404 lets you customize which links it monitors using jQuery selectors and same-origin/different-origin rules. By default, monitor404 will check all links for 404 errors. However in certain cases, you may only wish to check a subset.</p>
@@ -116,7 +123,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <h4><samp>500 Internal Server Error</samp></h4>
         <p>Uh oh! This means something went wrong on our end. Please contact support, and we'll get it fixed ASAP.</p>
 
-        <h3>I didn't get any message whatsoever :(</h3>
+        <h3>I didn't get any message at all :(</h3>
         <p>The monitor404 server will <em>always</em> return a response. If there's no response, it probably means a request wasn't sent. Some common reasons for this are:
             <ol>
                 <li>The <samp>monitor404.min.js</samp> script wasn't included on the page.</li>
@@ -130,7 +137,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <h2>FAQ</h2>
         <h3>I set everything up; how do I know if it's working?</h3>
         <p><strong>Short answer:</strong> <kbd>ctrl+click</kbd>/<kbd>Apple+click</kbd> a link to open it in a new tab, check the Network panel in Chrome (or equivalent in other browsers), make sure the response is a happy success message.</p>
-        <p><strong>Longer answer:</strong> see the &ldquo;Troubleshooting&rdquo; section.</p>
+        <p><strong>Longer answer:</strong> see the <a href="#troubleshooting">&ldquo;Troubleshooting&rdquo; section</a>.</p>
         
         <h3>How does monitor404 work?</h3>
         <p>When you set up monitor404, you include a tiny JavaScript file on pages you want to monitor. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
@@ -152,7 +159,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
             <li>{{ site.host }}</li>
             {% endfor %}
         </ul></p>
-        <p>If you find another site that always responds with 404s and needs to be ignored, you have suggestions on how to better mitigate this issue, or find this to be a dealbreaker, please let us know. We're very open to suggestions and feedback.</p>
+        <p>If you find another site that always responds with 404s and needs to be ignored, if you have suggestions on how to better mitigate this issue, or if you find this to be a dealbreaker, please let us know. We're very open to suggestions and feedback.</p>
 
         <h3>What happens if your server goes down?</h3>
         <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
@@ -161,7 +168,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <p>Yep! monitor404 is open source, released under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license</a>. Essentially, the license allows you to share/use/modify monitor404's code, as long as you attribute the work properly and don't use it for commercial purposes (subject to other terms; see the license for full details). If you're interested in commercial use, please contact us.</p>
 
         <h2>Support</h2>
-        <p>Have you tried all of the above troubleshooting and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by our FAQ? Maybe you just want to praise our wonderful product.</p>
+        <p>Have you tried all of the above <a href="#troubleshooting">troubleshooting steps</a> and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by <a href="#faq">our FAQ</a>? Maybe you just want to praise our wonderful product.</p>
         <p>Whatever the case, our support is here to lend a listening ear and a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you! Send us an email at {% if user.is_authenticated %}<a href="mailto:support@monitor404.com">support@monitor404.com</a>.{% else %}<pre>support (at) monitor404 (dot) com</pre>{% endif %}</p>
 
     </div>

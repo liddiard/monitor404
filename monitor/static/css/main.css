@@ -96,6 +96,11 @@ span.helptext {
   margin-bottom: 1em;
   line-height: 1.4; }
 
+.anchor {
+  margin-left: 0.25em;
+  color: #ddd;
+  font-size: 0.8em; }
+
 .panel.setting {
   line-height: 1.25; }
 
