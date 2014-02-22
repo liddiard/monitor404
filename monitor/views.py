@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 
 from .tasks import check_404
-from .models import UserPrefs, UserSite, LogEntry, URLCheck
+from .models import UserPrefs, UserSite, LogEntry, URLCheck, Plan, SiteToSkip
 from .forms import UserSiteForm, UserPrefsForm, ConfirmCurrentUserForm
 
 # abstract base classes
@@ -155,6 +155,7 @@ class ComparePlansView(SidebarView):
 
     def get_context_data(self, **kwargs):
         context = super(ComparePlansView, self).get_context_data(**kwargs)
+        context['plans'] = Plan.objects.all().order_by('-price')
         context['user_prefs'] = UserPrefs.objects\
                                     .get_or_create(user=self.request.user)[0]
         return context
@@ -187,6 +188,11 @@ class ChangePlansView(SidebarView):
 class DocsView(TemplateView):
 
     template_name = "docs.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DocsView, self).get_context_data(**kwargs)
+        context['sites_to_skip'] = SiteToSkip.objects.all()
+        return context
 
 
 class AccountDeleteView(FormView):
