@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import urllib2
+from urlparse import urlparse
 
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
@@ -7,7 +8,7 @@ from django.core.mail import send_mail
 # from celery import shared_task
 from celery.task import task
 
-from .models import URLCheck, LogEntry, UserPrefs
+from .models import URLCheck, LogEntry, UserPrefs, SiteToSkip
 
 
 # utils
@@ -101,8 +102,19 @@ def check_404(source, destination, sites):
     for site in sites:
         if site.is_eligible():
             eligible_site = True
+            break
     if not eligible_site:
-        return -2 # no eligible sites
+        return -3 # no eligible sites
+
+    destination_host = urlparse(destination).netloc
+    site_to_skip = False
+    for site in SiteToSkip.objects.all():
+        if site.host == destination_host:
+            site_to_skip = True
+            break
+    if site_to_skip:
+        return -2 # site is stored in db as one to skip
+
     check, created = URLCheck.objects.get_or_create(url=destination)
     if not created: # check already existed
         if check.is_stale():
