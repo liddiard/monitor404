@@ -46,7 +46,7 @@
 
     <!-- Left Nav Section -->
     <ul class="left">
-      <li><a href="#">Documentation</a></li>
+      <li><a href="{% url 'docs' %}">Documentation</a></li>
       {% if not user.is_authenticated %}
       <li><a href="{% url 'registration_register' %}">Create an account</a></li>
       {% endif %}

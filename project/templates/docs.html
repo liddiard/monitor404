@@ -14,8 +14,8 @@
         <ul class="side-nav">
             <li><a href="#">Getting Started</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="#">FAQ</a></li>
             <li><a href="#">Troubleshooting</a></li>
+            <li><a href="#">FAQ</a></li>
             <li><a href="#">Support</a></li>
         </ul>
     </aside>
@@ -79,34 +79,13 @@
         </div>
         <p><code>origin</code> allows you to include/exclude links for monitoring based on whether they are internal or external; i.e. whether they link to another page on your site and have the <code>'same'</code> hostname as the page from which they originate, or to a page off your site and have a <code>'different'</code> hostname than the page from which they originate. By default, <code>'both'</code> types are monitored.
 
-        <h2>FAQ</h2>
-        <h3>I set everything up; how do I know if it's working?</h3>
-        <p><strong>Short answer:</strong> <kbd>control-click</kbd>/<kbd>Apple-click</kbd> a link to open it in a new tab, check the Network panel in Chrome (or equivalent in other browsers), make sure the response is a happy success message.</p>
-        <p><strong>Longer answer:</strong> see the &ldquo;Troubleshooting&rdquo; section below.</p>
-        
-        <h3>How does monitor404 work?</h3>
-        <p>When you set up monitor404, you include a tiny JavaScript file on pages you want to monitor. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
-
-        <h3>Won't that Ajax request slow things down?</h3>
-        <p>Yes, but not perceptibly. The request/response is so quick that it's virtually unnoticable, even if you're looking for it.</p>
-
-        <h3>So every time a user clicks on a link, it's double the requests?</h3>
-        <p>No, for two reasons:
-        <ol>
-            <li>monitor404 caches the result of a URL check for an hour, so heavily trafficked links don't get re-checked with every click.</li>
-            <li>monitor404 only issues HEAD requests, which are significantly lighter than GET requests because they only return the HTTP headers and not the body content of the page.</li>
-        </ol></p>
-
-        <h3>What happens if your server goes down?</h3>
-        <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
-
         <h2>Troubleshooting</h2>
         <p>Setting up monitor404 is quite straightforward, but things always have a tendency to go awry, don't they? The purpose of this section is to make troubleshooting any errors as painless as possible.</p>
 
         <h3>Getting Feedback</h3>
         <p>For every link check that monitor404 sends out, it returns a JSON response that contains some useful information.</p>
         <p>To see this response, open the Chrome Developer Tools (I highly recommend Chrome though other major browsers have similiar solutions) and go to the &ldquo;Network&rdquo; tab.</p>
-        <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To get around this, simply <kbd>control+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
+        <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To get around this, simply <kbd>ctrl+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
         <p>If everything went well, you should see something like:</p>
         <pre><code>{result: 0, status: "success", message="Link queued for check."}</pre></code>
         <p>If this is the case, then yay! Everything's working &ndash; monitor404 recognized this request is associated with your site, got the link on which the user clicked, and has queued it for check (or retrieval from cache if it was checked recently).</p>
@@ -148,9 +127,30 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the jQuery selectors and/or origin rules you're using to make sure the desired links are included.</p>
         <p>If both of the above check out, you may have a JavaScript error on the page. To check, open Chrome Developer Tools (or equivalent in other browsers), and go to the &ldquo;Console&rdquo; tab. Fix any JavaScript errors that are present there.</p>
 
+        <h2>FAQ</h2>
+        <h3>I set everything up; how do I know if it's working?</h3>
+        <p><strong>Short answer:</strong> <kbd>ctrl+click</kbd>/<kbd>Apple+click</kbd> a link to open it in a new tab, check the Network panel in Chrome (or equivalent in other browsers), make sure the response is a happy success message.</p>
+        <p><strong>Longer answer:</strong> see the &ldquo;Troubleshooting&rdquo; section.</p>
+        
+        <h3>How does monitor404 work?</h3>
+        <p>When you set up monitor404, you include a tiny JavaScript file on pages you want to monitor. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
+
+        <h3>Won't that Ajax request slow things down?</h3>
+        <p>Yes, but not perceptibly. The request/response is so quick that it's virtually unnoticable, even if you're looking for it.</p>
+
+        <h3>So every time a user clicks on a link, it's double the requests?</h3>
+        <p>No, for two reasons:
+        <ol>
+            <li>monitor404 caches the result of a URL check for an hour, so heavily trafficked links don't get re-checked with every click.</li>
+            <li>monitor404 only issues HEAD requests, which are significantly lighter than GET requests because they only return the HTTP headers and not the body content of the page.</li>
+        </ol></p>
+
+        <h3>What happens if your server goes down?</h3>
+        <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
+
         <h2>Support</h2>
-        <p>Have you tried all of the above and are still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by our FAQ? Maybe you just want to praise our wonderful product.</p>
-        <p>Whatever the case, our support is here to lend a listening ear or a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you &ndash; send us an email at: <pre>support (at) monitor404 (dot) com</pre></p>
+        <p>Have you tried all of the above troubleshooting and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by our FAQ? Maybe you just want to praise our wonderful product.</p>
+        <p>Whatever the case, our support is here to lend a listening ear and a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you! Send us an email at: <pre>support (at) monitor404 (dot) com</pre></p>
 
     </div>
 </div>
