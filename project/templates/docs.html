@@ -62,7 +62,7 @@
             <strong>Format:</strong> string for a jQuery selector<br/>
             <strong>Constraints:</strong> must select <code>&lt;a&gt;</code> elements only
         </div>
-        <p><code>include</code> controls which links are monitored for 404 errors. If not defined, all links will be monitored. If defined, any selector you would use in jQuery (i.e. put inside a <code>$()</code>) is valid, as long as it selects link elements only. Trying to monitor links on non-link elements would be pointless, and it results in a JavaScript error.</p>
+        <p><code>include</code> controls which links are monitored for 404 errors. If not defined, all links will be monitored. If defined, any selector you would use in jQuery (i.e. put inside a <code>$()</code>) is valid, as long as it selects link elements only. Trying to monitor links on non-link elements would be pointless, and it results in an error.</p>
 
         <h3><code>exclude</code></h3>
         <div class="setting panel">
@@ -77,15 +77,15 @@
             <strong>Default:</strong> <code>'both'</code> (&ldquo;internal&rdquo; and &ldquo;external&rdquo; links)<br/>
             <strong>Options:</strong> <code>'same'</code>, <code>'different'</code>, or <code>'both'</code><br/>
         </div>
-        <p><code>origin</code> allows you to include/exclude links for monitoring based on whether they are internal or external; i.e. whether they link to another page on your site and have the <code>'same'</code> hostname as the page from which they originate, or to a page off your site and have a <code>'different'</code> hostname than the page from which they originate. By default, both types are monitored.
+        <p><code>origin</code> allows you to include/exclude links for monitoring based on whether they are internal or external; i.e. whether they link to another page on your site and have the <code>'same'</code> hostname as the page from which they originate, or to a page off your site and have a <code>'different'</code> hostname than the page from which they originate. By default, <code>'both'</code> types are monitored.
 
         <h2>FAQ</h2>
         <h3>I set everything up; how do I know if it's working?</h3>
-        <p><strong>Short answer:</strong> control-click/Apple-click a link to open it in a new tab, check the Network panel in Chrome (or equivalent in other browsers), make sure the response is a happy success message.</p>
+        <p><strong>Short answer:</strong> <kbd>control-click</kbd>/<kbd>Apple-click</kbd> a link to open it in a new tab, check the Network panel in Chrome (or equivalent in other browsers), make sure the response is a happy success message.</p>
         <p><strong>Longer answer:</strong> see the &ldquo;Troubleshooting&rdquo; section below.</p>
         
         <h3>How does monitor404 work?</h3>
-        <p>When you set up monitor404, you include a tiny JavaScript file on the page. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
+        <p>When you set up monitor404, you include a tiny JavaScript file on pages you want to monitor. Whenever a user clicks a link that's being monitored, this JavaScript sends an Ajax request to a monitor404 server with the link they're trying to visit in the split second before they leave the page. monitor404 puts that link into an asyncronous processing queue, and then issues the URL a HEAD request to check the status code of the response.</p>
 
         <h3>Won't that Ajax request slow things down?</h3>
         <p>Yes, but not perceptibly. The request/response is so quick that it's virtually unnoticable, even if you're looking for it.</p>
@@ -102,22 +102,55 @@
 
         <h2>Troubleshooting</h2>
         <p>Setting up monitor404 is quite straightforward, but things always have a tendency to go awry, don't they? The purpose of this section is to make troubleshooting any errors as painless as possible.</p>
+
         <h3>Getting Feedback</h3>
         <p>For every link check that monitor404 sends out, it returns a JSON response that contains some useful information.</p>
         <p>To see this response, open the Chrome Developer Tools (I highly recommend Chrome though other major browsers have similiar solutions) and go to the &ldquo;Network&rdquo; tab.</p>
-        <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To mitigate this, simply <kbd>control+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
+        <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To get around this, simply <kbd>control+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
         <p>If everything went well, you should see something like:</p>
         <pre><code>{result: 0, status: "success", message="Link queued for check."}</pre></code>
+        <p>If this is the case, then yay! Everything's working &ndash; monitor404 recognized this request is associated with your site, got the link on which the user clicked, and has queued it for check (or retrieval from cache if it was checked recently).</p>
         <p>If something went wrong, you may see something like:</p>
         <pre><code>{result: 1, error: "DoesNotExist", 
 message: "UserSite matching host \"example.com\" was not found."}</pre></code>
+        <p>If you got an error message, do not despair! Below is documented every error the monitor404 server may return to you, what the error means, and how to fix the issue.</p>
+
+        <h3>Error Messages</h3>
+        <h4><samp>KeyError: Required key "destination" not found in request.</samp></h4>
+        <p>This usually means the js script couldn't find the <code>href</code> property of the element on which the user clicked to send to the server. A common cause for this issue is that you're accidently including a non-link element, or the link element is missing an <code>href</code> property.</p>
+
+        <h4><samp>KeyError: Required key "source" not found in request.</samp></h4>
+        <p>This error means the URL of the page the user was on was not sent to the server. This error should not occur unless for some reason, running <code>document.URL</code> on the page containing the link returns <samp>undefined</samp> or <samp>null</samp>.</p>
+
+        <h4><samp>URLError: Could not parse origin header "[value]".</samp></h4>
+        <p>This error means either:
+            <ol>
+                <li>The origin header the browser sent was malformed (i.e. not a parsable URL), or</li>
+                <li>If <samp>[value]</samp> is <code>None</code>, the browser did not send an origin header.</li>
+            </ol>
+        </p>
+        <p>The second is probably more likely to occur. Because the request made is cross-origin (originating from somewhere other than monitor404.com), the browser should send an <samp>Origin</samp> header. Check the headers of the Ajax request. If the <samp>Origin</samp> header is missing, it may be that the browser you're using <a href="http://caniuse.com/#search=cross-origin%20resource%20sharing">doesn't support it</a>.</p>
+
+        <h4><samp>DoesNotExist: UserSite matching host "[hostname]" was not found.</samp></h4>
+        <p>If you get this error, it means that monitor404 doesn't have a site in its database matching the hostname from which you're sending the request. To fix the error, add (or re-add) a site from the <a href="{% url 'site_add' %}">&ldquo;Add Site&rdquo; dialog</a> with a <samp>Host</samp> that matches the host for which monitor404 is expecting as stated in the error message.</p>
+
+        <h4><samp>500 Internal Server Error</samp></h4>
+        <p>Uh oh! This means something went wrong on our end. Please contact support, and we'll get it fixed ASAP.</p>
+
+        <h3>I didn't get any message whatsoever :(</h3>
+        <p>The monitor404 server will <em>always</em> return a response. If there's no response, it probably means a request wasn't sent. Some common reasons for this are:
+            <ol>
+                <li>The <samp>monitor404.min.js</samp> script wasn't included on the page.</li>
+                <li>The link element on which you're clicking does not have a monitor404 click event bound to it.</li>
+                <li>You have a JavaScript error on the page which is preventing the monitor404 script from working properly.</li>
+            </ol>
+        </p>
+        <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the jQuery selectors and/or origin rules you're using to make sure the desired links are included.</p>
+        <p>If both of the above check out, you may have a JavaScript error on the page. To check, open Chrome Developer Tools (or equivalent in other browsers), and go to the &ldquo;Console&rdquo; tab. Fix any JavaScript errors that are present there.</p>
 
         <h2>Support</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <pre><code>
-&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;
-        </pre></code>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Have you tried all of the above and are still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by our FAQ? Maybe you just want to praise our wonderful product.</p>
+        <p>Whatever the case, our support is here to lend a listening ear or a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you &ndash; send us an email at: <pre>support (at) monitor404 (dot) com</pre></p>
 
     </div>
 </div>
