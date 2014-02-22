@@ -282,7 +282,7 @@ class MonitorView(AjaxView):
             host = urlparse(origin).netloc
         except: # NOTICE: catchall
             return self.error('URLError', 'Could not parse origin header URL '
-                              '%s.' % origin)
+                              '"%s."' % origin)
         sites = UserSite.objects.filter(host=host) 
         if not sites:
             return self.does_not_exist('UserSite matching host "%s" was not '
