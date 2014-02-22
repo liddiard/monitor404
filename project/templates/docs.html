@@ -101,11 +101,16 @@
         <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
 
         <h2>Troubleshooting</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <pre><code>
-&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;
-        </pre></code>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Setting up monitor404 is quite straightforward, but things always have a tendency to go awry, don't they? The purpose of this section is to make troubleshooting any errors as painless as possible.</p>
+        <h3>Getting Feedback</h3>
+        <p>For every link check that monitor404 sends out, it returns a JSON response that contains some useful information.</p>
+        <p>To see this response, open the Chrome Developer Tools (I highly recommend Chrome though other major browsers have similiar solutions) and go to the &ldquo;Network&rdquo; tab.</p>
+        <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To mitigate this, simply <kbd>control+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
+        <p>If everything went well, you should see something like:</p>
+        <pre><code>{result: 0, status: "success", message="Link queued for check."}</pre></code>
+        <p>If something went wrong, you may see something like:</p>
+        <pre><code>{result: 1, error: "DoesNotExist", 
+message: "UserSite matching host \"example.com\" was not found."}</pre></code>
 
         <h2>Support</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
