@@ -7,13 +7,17 @@ from django.template.defaultfilters import slugify
 from timezone_field import TimeZoneField
 
 
-class Plan(models.Mode):
+class Plan(models.Model):
     name = models.CharField(max_length=32, unique=True)
     max_requests = models.PositiveIntegerField()
     price = models.FloatField()
 
     def __unicode__(self):
         return self.name
+
+
+def basic_plan():
+    return Plan.objects.get(name='Basic').pk
 
 
 class UserPrefs(models.Model):
@@ -30,12 +34,7 @@ class UserPrefs(models.Model):
     email_quota.help_text = '''
         Do you want to be notified if one of your sites goes over its daily 
         request quota?'''
-    PLAN_CHOICES = (
-        ('b', 'Basic'),
-        ('p', 'Premium'),
-        ('e', 'Enterprise')
-    )
-    plan = models.CharField(max_length=1, choices=PLAN_CHOICES, default='b')
+    plan = models.ForeignKey('Plan', default=basic_plan)
 
     def __unicode__(self):
         return str(self.user)
@@ -47,18 +46,13 @@ class UserSite(models.Model):
     host.help_text = '''
         Full domain name, <strong>including</strong> subdomain (if any), and 
         <strong>excluding</strong> a leading "http://", etc.<br/><br/>Examples: 
-        example.com, news.ycombinator.com, www.404monitor.io'''
+        example.com, news.ycombinator.com, www.reddit.com'''
     slug = models.SlugField(max_length=253)
     requests_today = models.PositiveIntegerField(default=0)
 
     def max_requests(self):
         up = UserPrefs.objects.get_or_create(user=self.user)[0]
-        if up.plan == 'b':
-            return 200
-        elif up.plan == 'p':
-            return 2000
-        else:
-            return 20000
+        return up.plan.max_requests
 
     def is_eligible(self):
         return self.requests_today < self.max_requests()
@@ -95,3 +89,14 @@ class URLCheck(models.Model):
 
     def __unicode__(self):
         return "%s (%s)" % (self.url, self.last_checked)
+
+
+class SiteToSkip(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Sites to skip"
+
+    host = models.CharField(max_length=253, unique=True)
+
+    def __unicode__(self):
+        return self.host

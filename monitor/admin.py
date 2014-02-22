@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import UserPrefs, UserSite, LogEntry, URLCheck
+from .models import UserPrefs, UserSite, LogEntry, URLCheck, Plan, SiteToSkip
+
+
+class PlanAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Plan, PlanAdmin)
 
 
 class UserPrefsAdmin(admin.ModelAdmin):
@@ -30,3 +37,10 @@ class URLCheckAdmin(admin.ModelAdmin):
 
 
 admin.site.register(URLCheck, URLCheckAdmin)
+
+
+class SiteToSkipAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(SiteToSkip, SiteToSkipAdmin)
