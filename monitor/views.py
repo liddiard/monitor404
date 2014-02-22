@@ -168,7 +168,7 @@ class ChangePlansView(SidebarView):
     def dispatch(self, *args, **kwargs):
         if self.kwargs.get('plan') is None:
             return redirect('plan_compare')
-        return super(AccountDeleteView, self).dispatch(*args, **kwargs)
+        return super(ChangePlansView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ChangePlansView, self).get_context_data(**kwargs)
