@@ -22,6 +22,8 @@ def is_404(url):
         return e.code == 404
     else:
         return False
+    except: # catchall other url errors
+        return None # falsy value
 
 def send_error_email(source, destination, site):
     email_message = '''
