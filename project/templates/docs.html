@@ -10,25 +10,81 @@
 <div class="row">
 
     <aside class="hide-for-small medium-3 large-2 column">
-        <h5 id="your-sites">monitor404 Documentation</h5>
+        <h5>Contents</h5>
         <ul class="side-nav">
             <li><a href="#">Getting Started</a></li>
             <li><a href="#">Settings</a></li>
+            <li><a href="#">Troubleshooting</a></li>
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Support</a></li>
         </ul>
     </aside>
 
+
     <div class="primary small-12 medium-9 large-10 column">
-        <h1>monitor404 Documentation</h1>
+
+        <h1>Documentation</h1>
         <hr/>
+
         <h2>Getting Started</h2>
+        <p>
+            There are three steps to setting up your site with monitor404:
+            <ol>
+                <li><a href="{% url 'site_add' %}">Add your site</a> to the monitor404 dashboard.</li>
+                <li>Include a script on the pages you want to monitor.</li>
+                <li>(optional) Configure which links you want to be tracked/not tracked on pages. (All are tracked by default.)</li>
+            </ol>
+        </p>
+        <h3>Adding a site</h3>
+        <p>To add a site, go to the <a href="{% url 'site_add' %}">&ldquo;Add Site&rdquo; dialog</a> and enter the domain name of your site.</p>
+        <p>Note that your site name should include a subdomain if it has one. For example, if your site is on www.reddit.com, include the &ldquo;www&rdquo;. The domain name you enter should be equal to the JavaScript value of <code>window.location.host</code> on your site.</p>
+        <h3>Including the script</h3>
+        <p>To monitor 404 errors for links on a page, include the following script anywhere on the page:</p> 
+        <pre><code>&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;</pre></code>
+        <p>The script requires <a href="http://jquery.com/">jQuery</a>, which you should also load somewhere on the page. It's tested with jQuery version 1.10.2 but will probably work with other versions.</p>
+        <p>That's it! monitor404 will check all links on which a user clicks for 404 errors. It will log errors in the <a href="{% url 'log' %}">dashboard</a> and, by default, send you an email if it finds a broken link. If you only want to check certain links, refer to the next section.</p>
+
+        <h2>Settings</h2>
+        <p>monitor404 lets you customize which links it monitors using jQuery selectors and same-origin/different-origin rules. By default, monitor404 will check all links for 404 errors. However in certain cases, you may want to only check a subset.</p>
+        <p>For example, you may already have logging/notifications set up on your server for HTTP 404 errors and only want to monitor links that link to external websites for errors. Or, you may run a blog and want to make sure all links in your posts stay working, but not really care if links in user-submitted comments break.</p>
+        <p>To change any of these settings, define a variable on <code>window</code> named <code>_404_SETTINGS</code> anywhere before <code>$(document).ready()</code> fires. (Note the leading underscore on the variable name because JavaScript doesn't allow variables to start with a numeral.)
+        <p>Below is an example configuration using all settings, after which each setting is described in detail.</p>
+        <pre><code>window._404_SETTINGS = {
+    include: 'article a.ref', // only include links inside the &lt;article&gt; 
+                              // element that have the class "ref"
+    exclude: '.comments a', // exclude links in that are inside an element 
+                            // with the class "comments"
+    origin: 'different' // only check links that go to external sites
+};</pre></code>
+        <h3><code>include</code></h3>
+        <div class="setting panel">
+            <strong>Default:</strong> <code>'a'</code> (all links)<br/>
+            <strong>Format:</strong> string for a jQuery selector<br/>
+            <strong>Constraints:</strong> must select <code>&lt;a&gt;</code> elements only
+        </div>
+
+        <h2>Troubleshooting</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <pre><code>
 &lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;
         </pre></code>
-    </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
+        <h2>FAQ</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <pre><code>
+&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;
+        </pre></code>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <h2>Support</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <pre><code>
+&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;
+        </pre></code>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    </div>
 </div>
 
 {% endblock %}

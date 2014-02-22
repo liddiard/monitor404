@@ -92,6 +92,13 @@ span.helptext {
     float: left;
     margin: 0 20px 20px 0; }
 
+.hljs {
+  margin-bottom: 1em;
+  line-height: 1.4; }
+
+.panel.setting {
+  line-height: 1.25; }
+
 #your-sites {
   display: inline-block;
   margin-right: 0.2em; }
