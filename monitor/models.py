@@ -12,6 +12,9 @@ class Plan(models.Model):
     max_requests = models.PositiveIntegerField()
     price = models.FloatField()
 
+    def is_free(self):
+        return self.price == 0
+
     def __unicode__(self):
         return self.name
 

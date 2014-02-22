@@ -1,0 +1,37 @@
+{% extends "base_sidebar.html" %}
+{% load humanize %}
+
+{% block title %}Compare Plans | monitor404{% endblock %}
+
+{% block primary_content %}
+
+<h1>Compare Plans</h1>
+<h4 class="subheader">Get the right plan to protect your sites from 404 errors.</h4>
+
+<div class="plans">
+
+    {% for plan in plans %}
+    <div class="plan">
+        <ul class="pricing-table">
+            <li class="title">{{ plan.name }}</li>
+            <li class="price">{% if plan.is_free %}Free{% else %}${{ plan.price }}/mo.{% endif %}</li>
+            <li class="bullet-item"><strong>{{ plan.max_requests|intcomma }}</strong> daily link checks per site</li>
+            <li class="bullet-item">Detailed error logging</li>
+            <li class="bullet-item">Email notifications</li>
+            {% if not plan.is_free %}<li class="bullet-item">Dedicated support</li>{% endif %}
+            <li class="cta-button">
+                {% if plan == user_prefs.plan %}
+                <button class="disabled">Current Plan</button>
+                {% elif plan.price < user_prefs.plan.price %}
+                <button>Downgrade</button>
+                {% else %}
+                <button>Upgrade Now</button>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
