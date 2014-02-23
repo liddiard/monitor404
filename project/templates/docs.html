@@ -94,7 +94,7 @@
         <p>To see this response, open the Chrome Developer Tools (I highly recommend Chrome though other major browsers have similiar solutions) and go to the &ldquo;Network&rdquo; tab.</p>
         <p>If you click on a link normally, the new page will load before you can see the response from monitor404. To get around this, simply <kbd>ctrl+click</kbd> (or <kbd>Apple+click</kbd>, depending on your OS) on the link so that it opens in a new tab. In the &ldquo;Network&rdquo; panel on the first page, you should see a request to <samp>monitor404.com/api/check/</samp>.</p>
         <p>If everything went well, you should see something like:</p>
-        <pre><code>{result: 0, status: "success", message="Link queued for check."}</pre></code>
+        <pre><code>{result: 0, status: "success", message: "Link queued for check."}</pre></code>
         <p>If this is the case, then yay! Everything's working &ndash; monitor404 recognized this request is associated with your site, got the link on which the user clicked, and has queued it for check (or retrieval from cache if it was checked recently).</p>
         <p>If something went wrong, you may see something like:</p>
         <pre><code>{result: 1, error: "DoesNotExist", 
@@ -121,7 +121,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <p>If you get this error, it means that monitor404 doesn't have a site in its database matching the hostname from which you're sending the request. To fix the error, add (or re-add) a site from the <a href="{% url 'site_add' %}">&ldquo;Add Site&rdquo; dialog</a> with a <samp>Host</samp> that matches the host for which monitor404 is expecting as stated in the error message.</p>
 
         <h4><samp>500 Internal Server Error</samp></h4>
-        <p>Uh oh! This means something went wrong on our end. Please contact support, and we'll get it fixed ASAP.</p>
+        <p>Uh oh! This means something went wrong on our end. Please <a href="#support">contact support</a>, and we'll get it fixed ASAP.</p>
 
         <h3>I didn't get any message at all :(</h3>
         <p>The monitor404 server will <em>always</em> return a response. If there's no response, it probably means a request wasn't sent. Some common reasons for this are:
@@ -131,7 +131,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
                 <li>You have a JavaScript error on the page which is preventing the monitor404 script from working properly.</li>
             </ol>
         </p>
-        <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the jQuery selectors and/or origin rules you're using to make sure the desired links are included.</p>
+        <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the <a href="#settings">jQuery selectors and/or origin rules</a> you're using to make sure the desired links are included.</p>
         <p>If both of the above check out, you may have a JavaScript error on the page. To check, open Chrome Developer Tools (or equivalent in other browsers), and go to the &ldquo;Console&rdquo; tab. Fix any JavaScript errors that are present there.</p>
 
         <h2>FAQ</h2>
@@ -159,7 +159,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
             <li>{{ site.host }}</li>
             {% endfor %}
         </ul></p>
-        <p>If you find another site that always responds with 404s and needs to be ignored, if you have suggestions on how to better mitigate this issue, or if you find this to be a dealbreaker, please let us know. We're very open to suggestions and feedback.</p>
+        <p>If you find another site that always responds with 404s and needs to be ignored, if you have suggestions on how to better mitigate this issue, or if you find this to be a dealbreaker, please let us know. We're completely open to suggestions and feedback.</p>
 
         <h3>What happens if your server goes down?</h3>
         <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
@@ -168,7 +168,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         <p>Yep! monitor404 is open source, released under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license</a>. Essentially, the license allows you to share/use/modify monitor404's code, as long as you attribute the work properly and don't use it for commercial purposes (subject to other terms; see the license for full details). If you're interested in commercial use, please contact us.</p>
 
         <h2>Support</h2>
-        <p>Have you tried all of the above <a href="#troubleshooting">troubleshooting steps</a> and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by <a href="#faq">our FAQ</a>? Maybe you just want to praise our wonderful product.</p>
+        <p>Have you tried all of the above <a href="#troubleshooting">troubleshooting steps</a> and still having trouble getting monitor404 to work? Do you have a feature request, suggestion, or question that's not answered by <a href="#faq">our FAQ</a>? Do you just want tell us how wonderful monitor404 is?</p>
         <p>Whatever the case, our support is here to lend a listening ear and a helping hand. We officially provide support to Premium and Enterprise customers and will prioritize answering their requests first, but we try to respond to everyone. We want to hear from you! Send us an email at {% if user.is_authenticated %}<a href="mailto:support@monitor404.com">support@monitor404.com</a>.{% else %}<pre>support (at) monitor404 (dot) com</pre>{% endif %}</p>
 
     </div>
