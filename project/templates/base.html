@@ -35,6 +35,7 @@
       <li class="has-dropdown">
         <a href="#">{{ user }}</a>
         <ul class="dropdown">
+          <li><a href="{% url 'plan_compare' %}">Your Plan</a></li>
           <li><a href="{% url 'user_prefs' %}">Preferences</a></li>
           <li><a href="{% url 'auth_logout' %}">Log out</a></li>
         </ul>
