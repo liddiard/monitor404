@@ -178,7 +178,7 @@ class ChangePlansView(SidebarView):
     def get_context_data(self, **kwargs):
         context = super(ChangePlansView, self).get_context_data(**kwargs)
         plan_slug = self.kwargs.get('plan')
-        plan = get_object_or_404(Plan, name__iexact=plan_slug)
+        context['plan'] = get_object_or_404(Plan, name__iexact=plan_slug)
         return context
 
 
