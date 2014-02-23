@@ -21,11 +21,11 @@
             {% if not plan.is_free %}<li class="bullet-item">Dedicated support</li>{% endif %}
             <li class="cta-button">
                 {% if plan == user_prefs.plan %}
-                <button class="disabled">Current Plan</button>
+                <a class="disabled button">Current Plan</a>
                 {% elif plan.price < user_prefs.plan.price %}
-                <button>Downgrade</button>
+                <a class="button" href="{% url 'plan_change' plan.name|lower %}">Downgrade</a>
                 {% else %}
-                <button>Upgrade Now</button>
+                <a class="button" href="{% url 'plan_change' plan.name|lower %}">Upgrade Now</a>
                 {% endif %}
             </li>
         </ul>
