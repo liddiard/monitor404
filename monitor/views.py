@@ -55,7 +55,7 @@ class LogView(SidebarView):
                              'links for errors. Protect your site against '
                              'new 404s by <a href="%s">upgrading your '
                              'plan</a>.' % (site.host, 
-                             reverse_lazy('plan_change')))
+                             reverse_lazy('plan_compare')))
         try:
             user_prefs = UserPrefs.objects.get(user=self.request.user)
         except UserPrefs.DoesNotExist:
@@ -153,6 +153,10 @@ class ComparePlansView(SidebarView):
     
     template_name = "plan_compare.html"
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ComparePlansView, self).dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(ComparePlansView, self).get_context_data(**kwargs)
         context['plans'] = Plan.objects.all().order_by('price')
@@ -165,6 +169,7 @@ class ChangePlansView(SidebarView):
     
     template_name = "plan_change.html"
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if self.kwargs.get('plan') is None:
             return redirect('plan_compare')
