@@ -1,9 +1,68 @@
 {% extends "base_sidebar.html" %}
+{% load humanize %}
 
 {% block title %}Change Plan | monitor404{% endblock %}
 
 {% block primary_content %}
+<script src="{{ STATIC_URL }}js/creditly.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/creditly.css">
+<script>
+$(document).ready(function(){
+    var creditly = Creditly.initialize(
+        '.creditly-wrapper .expiration-month-and-year',
+        '.creditly-wrapper .credit-card-number',
+        '.creditly-wrapper .security-code',
+        '.creditly-wrapper .card-type');
+});
+</script>
 
-<h1>Change Plan: {{ plan.name }}</h1>
+<h1>{% if user_prefs.plan.price > plan.price %}Downgrade{% else %}Upgrade{% endif %} to {{ plan.name }}</h1>
+<hr/>
+
+<ul class="inline-list">
+    <li><strong style="display:inline">{{ plan.max_requests|intcomma }}</strong> daily link checks per site</li>
+    <li>Detailed logging</li>
+    <li>Email notifications</li>
+    {% if not plan.is_free %}<li>Dedicated support</li>{% endif %}
+</ul>
+
+<section class="creditly-wrapper gray-theme">
+  <h3>Credit Card</h3>
+  <div class="card-type"></div>
+  <div class="credit-card-wrapper">
+    <div class="first-row form-group">
+      <div class="col-sm-8 controls">
+        <label class="control-label">Card Number</label>
+        <input class="number credit-card-number form-control"
+          type="text" name="number"
+          pattern="\d*"
+          inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
+          placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+      </div>
+      <div class="col-sm-4 controls">
+        <label class="control-label">CVV</label>
+        <input class="security-code form-control"Â·
+          inputmode="numeric"
+          pattern="\d*"
+          type="text" name="security-code"
+          placeholder="&#149;&#149;&#149;">
+      </div>
+    </div>
+    <div class="second-row form-group">
+      <div class="col-sm-8 controls">
+        <label class="control-label">Name on Card</label>
+        <input class="billing-address-name form-control"
+          type="text" name="name"
+          placeholder="John Smith">
+      </div>
+      <div class="col-sm-4 controls">
+        <label class="control-label">Expiration</label>
+        <input class="expiration-month-and-year form-control"
+          type="text" name="expiration-month-and-year"
+          placeholder="MM / YY">
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
