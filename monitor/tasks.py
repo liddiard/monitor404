@@ -20,10 +20,10 @@ def is_404(url):
         urllib2.urlopen(request)
     except urllib2.HTTPError, e:
         return e.code == 404
-    else:
-        return False
     except: # catchall other url errors
         return None # falsy value
+    else:
+        return False
 
 def send_error_email(source, destination, site):
     email_message = '''
