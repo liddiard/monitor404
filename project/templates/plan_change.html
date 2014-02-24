@@ -4,10 +4,15 @@
 {% block title %}Change Plan | monitor404{% endblock %}
 
 {% block primary_content %}
-<script src="{{ STATIC_URL }}js/creditly.js"></script>
+
 <link rel="stylesheet" href="{{ STATIC_URL }}css/creditly.css">
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="{{ STATIC_URL }}js/creditly.js"></script>
 <script>
 $(document).ready(function(){
+    Stripe.setPublishableKey('pk_test_o41iwtQNmvQuGl4Vses2r1fa');
+
+
     var creditly = Creditly.initialize(
         '.creditly-wrapper .expiration-month-and-year',
         '.creditly-wrapper .credit-card-number',
@@ -23,6 +28,14 @@ $(document).ready(function(){
         console.log(output["security_code"]);
         console.log(output["expiration_month"]);
         console.log(output["expiration_year"]);
+
+        Stripe.createToken({
+            number: output['number'],
+            cvc: output['security_code'],
+            exp_month: output['expiration_month'].toString().substr(0,2),
+            exp_year: '20' + output['expiration_year'].toString().substr(2,2),
+        }, function(status, response){ console.log(status) });
+
       }
     });
 });
