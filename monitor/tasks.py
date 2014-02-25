@@ -124,6 +124,7 @@ def check_404(source, destination, sites):
                          # because we're going to check it next...
         else:
             return -1 # url check is fresh; no further processing required
+
     if is_404(destination):
         for site in sites:
             if site.is_eligible():
