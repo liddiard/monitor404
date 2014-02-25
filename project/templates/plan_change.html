@@ -12,7 +12,6 @@
 $(document).ready(function(){
     Stripe.setPublishableKey('pk_test_o41iwtQNmvQuGl4Vses2r1fa');
 
-
     var creditly = Creditly.initialize(
         '.creditly-wrapper .expiration-month-and-year',
         '.creditly-wrapper .credit-card-number',
@@ -20,24 +19,28 @@ $(document).ready(function(){
         '.creditly-wrapper .card-type');
 
     $(".creditly-wrapper button").click(function(e) {
-      e.preventDefault();
-      var output = creditly.validate();
-      if (output) {
-        // Do something with your credit card output.
-        console.log(output["number"]);
-        console.log(output["security_code"]);
-        console.log(output["expiration_month"]);
-        console.log(output["expiration_year"]);
-
-        Stripe.createToken({
-            number: output['number'],
-            cvc: output['security_code'],
-            exp_month: output['expiration_month'].toString().substr(0,2),
-            exp_year: '20' + output['expiration_year'].toString().substr(2,2),
-        }, function(status, response){ console.log(status) });
-
-      }
+        e.preventDefault();
+        var output = creditly.validate();
+        if (output) {
+            Stripe.createToken({
+                number: output['number'],
+                cvc: output['security_code'],
+                exp_month: output['expiration_month'].toString().substr(0,2),
+                exp_year: '20' + output['expiration_year'].toString().substr(2,2),
+            }, stripeResponseHandler);
+        }
     });
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+             $(".payment-errors").text(response.error.message).css('display', 'inline-block');
+        } else {
+            var form = $('form.creditly-wrapper');
+            var token = response['id'];
+            form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            form.get(0).submit();
+        }
+    }
 });
 
 
@@ -56,7 +59,9 @@ $(document).ready(function(){
 
 <p>Please enter your credit card information below.</p>
 
-<form class="creditly-wrapper gray-theme">
+<div class="payment-errors alert label"></div>
+
+<form method="post" action="" class="creditly-wrapper gray-theme">{% csrf_token %}
   <!--<h3>Credit Card</h3>-->
   <div class="card-type"></div>
   <div class="credit-card-wrapper">
@@ -93,7 +98,9 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-  <button>Submit</button>
+  <div class="submit">
+      <button>Submit</button>
+  </div>
 </form>
 
 {% endblock %}

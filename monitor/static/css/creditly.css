@@ -25,7 +25,7 @@
   background: #f6f6f6;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  display: inline-block;
+  display: block;
   max-width: 400px;
   border: 1px solid #ddd;
 }
@@ -199,7 +199,16 @@
   background: #5dc5ee;
 }
 
+.creditly-wrapper .submit {
+    text-align: right;
+}
+
 .creditly-wrapper button {
-    float: right;
+    display: inline-block;
     margin: 0 15px 10px 0;
+}
+
+.payment-errors {
+    margin-bottom: 1em;
+    display: none;
 }
