@@ -48,6 +48,10 @@ $(document).ready(function(){
 
 <h1>{% if user_prefs.plan.price > plan.price %}Downgrade{% else %}Upgrade{% endif %} to {{ plan.name }}</h1>
 
+<p>Please enter your payment details below to {% if user_prefs.plan.price > plan.price %}downgrade{% else %}upgrade{% endif %} to {{ plan.name }} for ${{ plan.price }}/month.</p>
+
+<hr/>
+
 <ul class="inline-list">
     <li><strong style="display:inline">{{ plan.max_requests|intcomma }}</strong> daily link checks per site</li>
     <li>Detailed logging</li>
@@ -56,8 +60,6 @@ $(document).ready(function(){
 </ul>
 
 <hr/>
-
-<p>Please enter your credit card information below.</p>
 
 <div class="payment-errors alert label"></div>
 
@@ -100,7 +102,7 @@ $(document).ready(function(){
     </div>
   </div>
   <div class="submit">
-      <button>Submit</button>
+      <button>Upgrade</button>
   </div>
 </form>
 
