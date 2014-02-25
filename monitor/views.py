@@ -1,5 +1,6 @@
 import json
 from urlparse import urlparse
+
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, Http404
 from django.views.generic.base import View, TemplateView
@@ -8,6 +9,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
+
+import stripe
 
 from .tasks import check_404
 from .models import UserPrefs, UserSite, LogEntry, URLCheck, Plan, SiteToSkip
@@ -182,6 +185,17 @@ class ChangePlansView(SidebarView):
         context['user_prefs'] = UserPrefs.objects\
                                       .get_or_create(user=self.request.user)[0]
         return context
+
+
+class ChargeView(SidebarView):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ChargeView, self).dispatch(*args, **kwargs)
+
+    def post(self, request):
+        token = request.POST.get('stripeToken')
+        print token
 
 
 class DocsView(TemplateView):
