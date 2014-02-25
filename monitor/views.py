@@ -9,8 +9,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
+from django.conf import settings
 
 import stripe
+stripe.api_key = settings.STRIPE_API_KEY
 
 from .tasks import check_404
 from .models import UserPrefs, UserSite, LogEntry, URLCheck, Plan, SiteToSkip
@@ -195,7 +197,14 @@ class ChargeView(SidebarView):
 
     def post(self, request):
         token = request.POST.get('stripeToken')
+        plan = request.POST.get('plan')
+        stripe_response = stripe.Customer.create(
+            description='new_paying_customer',
+            plan='monitor404_'+plan,
+            card=token
+        )
         print token
+        print stripe_response
 
 
 class DocsView(TemplateView):

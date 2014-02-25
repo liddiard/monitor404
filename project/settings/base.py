@@ -105,3 +105,6 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
+
+# stripe
+STRIPE_API_KEY = os.environ['STRIPE_API_KEY']

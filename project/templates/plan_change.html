@@ -61,7 +61,8 @@ $(document).ready(function(){
 
 <div class="payment-errors alert label"></div>
 
-<form method="post" action="" class="creditly-wrapper gray-theme">{% csrf_token %}
+<form method="post" action="{% url 'plan_charge' %}" class="creditly-wrapper gray-theme">{% csrf_token %}
+  <input type="hidden" name="plan" value="{{ plan.name|lower }}">
   <!--<h3>Credit Card</h3>-->
   <div class="card-type"></div>
   <div class="credit-card-wrapper">
