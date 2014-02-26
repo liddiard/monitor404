@@ -153,13 +153,13 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
         </ol></p>
 
         <h3>Do all servers respond to HEAD requests with the same status code they respond to GET requests?</h3>
-        <p>According to the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">W3 spec</a>, they must. However, a few sites don't honor this and return 404 to all HEAD requests, or to all requests sent from an EC2 IP address (which monitor404 runs on). Consequently, monitor404 has had to ignore 404s from a few sites. An exhaustive list of ignored sites follows:
+        <p>According to the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">W3 HTTP spec</a>, they must. However, a few sites don't honor this and return 404 to all HEAD requests, or to all requests sent from an EC2 IP address (which monitor404 runs on). Consequently, monitor404 has had to ignore 404s from a few sites. An exhaustive list of ignored sites follows:
         <ul>
             {% for site in sites_to_skip %}
             <li>{{ site.host }}</li>
             {% endfor %}
         </ul></p>
-        <p>If you find another site that always responds with 404s and needs to be ignored, if you have suggestions on how to better mitigate this issue, or if you find this to be a dealbreaker, please let us know. We're completely open to suggestions and feedback.</p>
+        <p>If you find another site that always responds with 404s and needs to be ignored, if you have suggestions on how to better mitigate this issue, or if you find this to be a dealbreaker, please let us know. We're open to suggestions and feedback.</p>
 
         <h3>What happens if your server goes down?</h3>
         <p>monitor404 has graceful fallback measures in place to make sure all links work as normal if (heaven forbid) our server malfunctioned or went down.</p>
