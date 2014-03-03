@@ -197,14 +197,14 @@ class ChargeView(SidebarView):
 
     def post(self, request):
         token = request.POST.get('stripeToken')
-        plan = request.POST.get('plan')
-        stripe_response = stripe.Customer.create(
+        plan = "monitor404_" + request.POST.get('plan')
+        customer = stripe.Customer.create(
             description='new_paying_customer',
-            plan='monitor404_'+plan,
+            plan=plan,
             card=token
         )
-        print token
-        print stripe_response
+        customer_id = customer['subscriptions']['data'][0]['customer']
+        print customer_id
 
 
 class DocsView(TemplateView):
