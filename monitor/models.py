@@ -38,6 +38,7 @@ class UserPrefs(models.Model):
         Do you want to be notified if one of your sites goes over its daily 
         request quota?'''
     plan = models.ForeignKey('Plan', default=basic_plan)
+    customer = models.CharField(max_length=32, blank=True)
 
     def __unicode__(self):
         return str(self.user)
