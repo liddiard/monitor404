@@ -6,7 +6,9 @@
 {% block primary_content %}
 
 <link rel="stylesheet" href="{{ STATIC_URL }}css/creditly.css">
+
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
 <script src="{{ STATIC_URL }}js/creditly.js"></script>
 <script>
 $(document).ready(function(){
@@ -43,12 +45,11 @@ $(document).ready(function(){
     }
 });
 
-
 </script>
 
 <h1>{% if user_prefs.plan.price > plan.price %}Downgrade{% else %}Upgrade{% endif %} to {{ plan.name }}</h1>
 
-<p>Please enter your payment details below to {% if user_prefs.plan.price > plan.price %}downgrade{% else %}upgrade{% endif %} to {{ plan.name }} for ${{ plan.price|floatformat:2 }}/month.</p>
+<p>Please {% if user_prefs.customer %}confirm that you would like{% else %}enter your payment details below{% endif %} to {% if user_prefs.plan.price > plan.price %}downgrade{% else %}upgrade{% endif %} to {{ plan.name }} for ${{ plan.price|floatformat:2 }}/month.</p>
 
 <hr/>
 
@@ -60,6 +61,15 @@ $(document).ready(function(){
 </ul>
 
 <hr/>
+
+{% if user_prefs.customer %}
+
+<form method="post" action="{% url 'plan_charge' %}" class="">{% csrf_token %}
+  <input type="hidden" name="plan" value="{{ plan.name|lower }}">
+  <button type="submit">Confirm</button>
+</form>
+
+{% else %}
 
 <div class="payment-errors alert label"></div>
 
@@ -105,5 +115,7 @@ $(document).ready(function(){
       <button>Upgrade</button>
   </div>
 </form>
+
+{% endif %}
 
 {% endblock %}
