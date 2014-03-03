@@ -196,15 +196,34 @@ class ChargeView(SidebarView):
         return super(ChargeView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
-        token = request.POST.get('stripeToken')
-        plan = "monitor404_" + request.POST.get('plan')
-        customer = stripe.Customer.create(
-            description='new_paying_customer',
-            plan=plan,
-            card=token
-        )
-        customer_id = customer['subscriptions']['data'][0]['customer']
-        print customer_id
+        plan = request.POST.get('plan')
+        stripe_plan = "monitor404_" + plan
+        user_prefs = UserPrefs.objects.get_or_create(user=request.user)[0]
+
+        if user_prefs.customer:
+            customer = stripe.Customer.retrieve(user_prefs.customer)
+            subscription_id = customer['subscriptions']['data'][0]['id']
+            subscription = customer.subscriptions.retrieve(subscription_id)
+            subscription.plan = stripe_plan
+            subscription.save()
+            print subscription
+        else:
+            token = request.POST.get('stripeToken')
+            customer = stripe.Customer.create(
+                email=user_prefs.user.email,
+                description=user_prefs.user.username,
+                plan=stripe_plan,
+                card=token
+            )
+            customer_id = customer['subscriptions']['data'][0]['customer']
+            user_prefs.customer = customer_id
+            user_prefs.save()
+            print customer_id
+
+        p = Plan.objects.get(name__iexact=plan)
+        user_prefs.plan = p
+        user_prefs.save()
+        return 0
 
 
 class DocsView(TemplateView):
