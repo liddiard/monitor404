@@ -14,7 +14,7 @@
     <div class="plan">
         <ul class="pricing-table">
             <li class="title">{{ plan.name }}</li>
-            <li class="price">{% if plan.is_free %}Free{% else %}${{ plan.price }}/mo.{% endif %}</li>
+            <li class="price">{% if plan.is_free %}Free{% else %}${{ plan.price|floatformat:2 }}/mo.{% endif %}</li>
             <li class="bullet-item"><strong>{{ plan.max_requests|intcomma }}</strong> daily link checks per site</li>
             <li class="bullet-item">Detailed error logging</li>
             <li class="bullet-item">Email notifications</li>

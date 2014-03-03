@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 <h1>{% if user_prefs.plan.price > plan.price %}Downgrade{% else %}Upgrade{% endif %} to {{ plan.name }}</h1>
 
-<p>Please enter your payment details below to {% if user_prefs.plan.price > plan.price %}downgrade{% else %}upgrade{% endif %} to {{ plan.name }} for ${{ plan.price }}/month.</p>
+<p>Please enter your payment details below to {% if user_prefs.plan.price > plan.price %}downgrade{% else %}upgrade{% endif %} to {{ plan.name }} for ${{ plan.price|floatformat:2 }}/month.</p>
 
 <hr/>
 
