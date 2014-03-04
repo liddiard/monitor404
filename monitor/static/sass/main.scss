@@ -153,6 +153,10 @@ span.helptext {
     line-height: 1.25;
 }
 
+.error, .errorlist {
+    color: red;
+}
+
 #your-sites {
     display: inline-block;
     margin-right: 0.2em;
