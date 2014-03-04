@@ -46,7 +46,7 @@ form.medium {
     max-width: 300px;
 
     input {
-        margin-bottom: 0; // overriding foundation
+        margin-bottom: 0; // overriding Foundation
     }
 }
 
@@ -81,7 +81,7 @@ span.helptext {
     margin-top: 0.5em;
 }
 
-.row.fullwidth { // overriding foundation
+.row.fullwidth { // overriding Foundation
     max-width: none;
 }
 
@@ -155,6 +155,12 @@ span.helptext {
 
 .error, .errorlist {
     color: red;
+}
+
+.alert-box.error {
+    color: white;
+    background-color: #f04124; // default color from Foundation
+    border-color: #cf280e; // default color from Foundation
 }
 
 #your-sites {

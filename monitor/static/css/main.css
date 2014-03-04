@@ -108,6 +108,11 @@ span.helptext {
 .error, .errorlist {
   color: red; }
 
+.alert-box.error {
+  color: white;
+  background-color: #f04124;
+  border-color: #cf280e; }
+
 #your-sites {
   display: inline-block;
   margin-right: 0.2em; }

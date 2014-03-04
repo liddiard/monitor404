@@ -210,16 +210,22 @@ class ChargeView(SidebarView):
             print subscription
         else:
             token = request.POST.get('stripeToken')
-            customer = stripe.Customer.create(
-                email=user_prefs.user.email,
-                description=user_prefs.user.username,
-                plan=stripe_plan,
-                card=token
-            )
-            customer_id = customer['subscriptions']['data'][0]['customer']
-            user_prefs.customer = customer_id
-            user_prefs.save()
-            print customer_id
+            try:
+                customer = stripe.Customer.create(
+                    email=user_prefs.user.email,
+                    description=user_prefs.user.username,
+                    plan=stripe_plan,
+                    card=token
+                )
+            except stripe.error.CardError as e:
+                error_msg = e.json_body['error']['message']
+                messages.error(request, 'Whoops! '+error_msg)
+                return redirect('plan_change', plan=plan)
+            else:
+                customer_id = customer['subscriptions']['data'][0]['customer']
+                user_prefs.customer = customer_id
+                user_prefs.save()
+                print customer_id
 
         p = Plan.objects.get(name__iexact=plan)
         user_prefs.plan = p
