@@ -7,6 +7,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as django_login, logout as django_logout
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
@@ -249,13 +250,13 @@ class AccountDeleteView(FormView):
         })
         return kwargs
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            return redirect('front')
-        return super(AccountDeleteView, self).dispatch(request, *args, **kwargs)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AccountDeleteView, self).dispatch(*args, **kwargs)
     
     def form_valid(self, form):
         user = form.cleaned_data.get('user')
+        UserSite.objects.filter(user=user).delete()
         user.is_active = False
         user.save()
         django_logout(self.request)
