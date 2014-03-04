@@ -157,3 +157,19 @@ span.helptext {
     display: inline-block;
     margin-right: 0.2em;
 }
+
+#account-options {
+    margin: 2em 0;
+
+    & > li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    #delete {
+        color: red;
+        font-size: 0.7em;
+        text-transform: uppercase;
+    }
+}

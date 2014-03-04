@@ -3,9 +3,16 @@
 {% block title %}Preferences | monitor404{% endblock %}
 
 {% block primary_content %}
-    <h1>Preferences</h1>
-    <form class="medium" method="post" action="">{% csrf_token %}
-        {{ form }}
-        <input type="submit" class="button" value="Save"/>
-    </form>
+
+<h1>Preferences</h1>
+<form class="medium" method="post" action="">{% csrf_token %}
+    {{ form }}
+    <input type="submit" class="button" value="Save"/>
+</form>
+
+<ul id="account-options">
+    <li><a href="{% url 'password_change' %}">Change Password</a></li>
+    <li><a class="subtle" id="delete" href="{% url 'account_delete' %}">Delete Account</a></li>
+</ul>
+
 {% endblock %}
