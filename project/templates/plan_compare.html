@@ -23,7 +23,7 @@
                 {% if plan == user_prefs.plan %}
                 <a class="disabled button">Current Plan</a>
                 {% elif plan.price < user_prefs.plan.price %}
-                <a class="button" href="{% url 'plan_change' plan.name|lower %}">Downgrade</a>
+                <a class="secondary button" href="{% url 'plan_change' plan.name|lower %}">Downgrade</a>
                 {% else %}
                 <a class="button" href="{% url 'plan_change' plan.name|lower %}">Upgrade Now</a>
                 {% endif %}
