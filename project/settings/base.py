@@ -28,7 +28,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '.hliddiard.com', '.404monitor.io']
+ALLOWED_HOSTS = ['localhost', 'monitor404.com']
 
 
 # Application definition
