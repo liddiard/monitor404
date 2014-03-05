@@ -143,7 +143,12 @@ span.helptext {
   padding: 0 1em; }
   .row.front-page ul.features {
     display: table;
-    margin: 2em auto 0.5em auto; }
+    margin: 0.5em auto 0.75em auto; }
+    .row.front-page ul.features > li {
+      margin: 0 0.75em; }
+    @media (max-width: 460px) {
+      .row.front-page ul.features > li {
+        float: none; } }
   .row.front-page .plan {
     display: inline-block;
     vertical-align: top;
@@ -153,7 +158,7 @@ span.helptext {
 .step {
   display: inline-block;
   text-align: left;
-  margin-bottom: 1em; }
+  margin-bottom: 0.75em; }
   .step p {
     margin-top: 1em; }
   .step .title {
@@ -178,4 +183,4 @@ span.helptext {
   margin: 1em auto; }
 
 #explainer {
-  margin-bottom: 1em; }
+  margin-bottom: 0.75em; }
