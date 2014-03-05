@@ -35,6 +35,12 @@ class FrontView(TemplateView):
 
     template_name = "front.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(FrontView, self).get_context_data(**kwargs)
+        context['plans'] = Plan.objects.order_by('price')
+        context['plan_button'] = False
+        return context
+
 
 class LogView(SidebarView):
     
@@ -166,7 +172,8 @@ class ComparePlansView(SidebarView):
 
     def get_context_data(self, **kwargs):
         context = super(ComparePlansView, self).get_context_data(**kwargs)
-        context['plans'] = Plan.objects.all().order_by('price')
+        context['plans'] = Plan.objects.order_by('price')
+        context['plan_button'] = True
         context['user_prefs'] = UserPrefs.objects\
                                     .get_or_create(user=self.request.user)[0]
         return context

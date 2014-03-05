@@ -139,6 +139,10 @@ span.helptext {
   .row.front-page ul.features {
     display: table;
     margin: 2em auto 0.5em auto; }
+  .row.front-page .plan {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px; }
 
 .step {
   display: inline-block;

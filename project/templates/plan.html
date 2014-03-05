@@ -8,6 +8,7 @@
         <li class="bullet-item">Detailed error logging</li>
         <li class="bullet-item">Email notifications</li>
         {% if not plan.is_free %}<li class="bullet-item">Dedicated support</li>{% endif %}
+        {% if plan_button %}
         <li class="cta-button">
             {% if plan == user_prefs.plan %}
             <a class="disabled button">Current Plan</a>
@@ -17,5 +18,6 @@
             <a class="button" href="{% url 'plan_change' plan.name|lower %}">Upgrade Now</a>
             {% endif %}
         </li>
+        {% endif %}
     </ul>
 </div>
