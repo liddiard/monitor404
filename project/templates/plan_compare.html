@@ -1,5 +1,4 @@
 {% extends "base_sidebar.html" %}
-{% load humanize %}
 
 {% block title %}Compare Plans | monitor404{% endblock %}
 
@@ -11,25 +10,7 @@
 <div class="plans">
 
     {% for plan in plans %}
-    <div class="plan">
-        <ul class="pricing-table">
-            <li class="title">{{ plan.name }}</li>
-            <li class="price">{% if plan.is_free %}Free{% else %}${{ plan.price|floatformat:2 }}/mo.{% endif %}</li>
-            <li class="bullet-item"><strong>{{ plan.max_requests|intcomma }}</strong> daily link checks per site</li>
-            <li class="bullet-item">Detailed error logging</li>
-            <li class="bullet-item">Email notifications</li>
-            {% if not plan.is_free %}<li class="bullet-item">Dedicated support</li>{% endif %}
-            <li class="cta-button">
-                {% if plan == user_prefs.plan %}
-                <a class="disabled button">Current Plan</a>
-                {% elif plan.price < user_prefs.plan.price %}
-                <a class="secondary button" href="{% url 'plan_change' plan.name|lower %}">Downgrade</a>
-                {% else %}
-                <a class="button" href="{% url 'plan_change' plan.name|lower %}">Upgrade Now</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
+        {% include "plan.html" %}
     {% endfor %}
 
 </div>
