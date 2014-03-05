@@ -52,6 +52,10 @@ span.helptext {
   color: gray;
   margin-bottom: 2em; }
 
+.title-area .name img {
+  height: 25px;
+  padding-bottom: 5px; }
+
 .primary {
   margin-top: 0.5em; }
 
