@@ -195,6 +195,7 @@ span.helptext {
 
 .row.front-page {
     text-align: center;
+    padding: 0 1em;
 
     ul.features {
         display: table;
@@ -205,6 +206,7 @@ span.helptext {
         display: inline-block;
         vertical-align: top;
         margin: 0 10px;
+        width: 240px; // fixed width to prevent ugly uncentered-looking stuff
     }
 }
 

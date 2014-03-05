@@ -135,14 +135,16 @@ span.helptext {
 
 /* front page */
 .row.front-page {
-  text-align: center; }
+  text-align: center;
+  padding: 0 1em; }
   .row.front-page ul.features {
     display: table;
     margin: 2em auto 0.5em auto; }
   .row.front-page .plan {
     display: inline-block;
     vertical-align: top;
-    margin: 0 10px; }
+    margin: 0 10px;
+    width: 240px; }
 
 .step {
   display: inline-block;
