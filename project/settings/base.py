@@ -88,6 +88,10 @@ USE_L10N = True
 
 USE_TZ = False
 
+SERVER_EMAIL = "error@monitor404.com"
+
+ADMINS = ('omniaura5@gmail.com',)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
