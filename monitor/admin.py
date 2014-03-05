@@ -17,7 +17,7 @@ admin.site.register(UserPrefs, UserPrefsAdmin)
 
 
 class UserSiteAdmin(admin.ModelAdmin):
-    list_display = ('user', 'host')    
+    list_display = ('host', 'user')    
     prepopulated_fields = {'slug': ('host',)}
 
 
