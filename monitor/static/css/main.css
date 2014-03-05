@@ -113,6 +113,11 @@ span.helptext {
   background-color: #f04124;
   border-color: #cf280e; }
 
+.annotation {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: bold; }
+
 #your-sites {
   display: inline-block;
   margin-right: 0.2em; }
@@ -127,3 +132,38 @@ span.helptext {
     color: red;
     font-size: 0.7em;
     text-transform: uppercase; }
+
+/* front page */
+.row.front-page {
+  text-align: center; }
+  .row.front-page ul.features {
+    display: table;
+    margin: 2em auto 0.5em auto; }
+
+.step {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 1em; }
+  .step .title {
+    float: left;
+    margin-right: 0.5em; }
+    .step .title .annotation {
+      vertical-align: top;
+      display: inline-block;
+      margin-top: 1em; }
+    .step .title .number {
+      font-size: 5em; }
+  .step + .step {
+    padding-left: 1em; }
+
+#tagline {
+  margin: 0.5em 0; }
+
+#banner {
+  width: 100%;
+  max-width: 640px;
+  display: block;
+  margin: 1em auto; }
+
+#explainer {
+  margin-bottom: 1em; }

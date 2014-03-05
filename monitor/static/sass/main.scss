@@ -163,6 +163,12 @@ span.helptext {
     border-color: #cf280e; // default color from Foundation
 }
 
+.annotation {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 #your-sites {
     display: inline-block;
     margin-right: 0.2em;
@@ -182,4 +188,56 @@ span.helptext {
         font-size: 0.7em;
         text-transform: uppercase;
     }
+}
+
+
+/* front page */
+
+.row.front-page {
+    text-align: center;
+
+    ul.features {
+        display: table;
+        margin: 2em auto 0.5em auto;
+    }
+}
+
+.step {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 1em;
+
+    .title {
+        float: left;
+        margin-right: 0.5em;
+
+        .annotation {
+            vertical-align: top;
+            display: inline-block;
+            margin-top: 1em;
+        }
+
+        .number {
+            font-size: 5em;
+        }
+    }
+
+    & + .step {
+        padding-left: 1em;
+    }
+}
+
+#tagline {
+    margin: 0.5em 0;
+}
+
+#banner {
+    width: 100%;
+    max-width: 640px;
+    display: block;
+    margin: 1em auto;
+}
+
+#explainer {
+    margin-bottom: 1em;
 }

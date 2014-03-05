@@ -2,6 +2,40 @@
 
 {% block content %}
 
+<div class="front-page row">
+    <h1 id="tagline" class="subheader">Link with confidence.</h1>
+    <img id="banner" src="{{ STATIC_URL }}img/banner.svg" alt="monitor404"/>
+    <h3 id="explainer">Comprehensive HTTP 404 error monitoring on your sites in two steps.</h3>
 
+    <div class="step">
+        <div class="title">
+            <span class="secondary label annotation">Step</span>
+            <span class="number">1</span>
+        </div>
+        <p>Add your site to the monitor404 dashboard.</p>
+    </div>
+
+    <div class="step">
+        <div class="title">
+            <span class="secondary label annotation">Step</span>
+            <span class="number">2</span>
+        </div>
+        <p>Include the tiny monitor404.js script on your site.</p>
+    </div>
+
+    <h4>That's it! You'll get notified if a link on your site breaks.</h4>
+    
+    <p>No dealing with backend-specific settings. Spend less time configuring boring things and more time creating cool things.</p>
+
+    <ul class="features inline-list">
+        <li>Detailed error logging</li>
+        <li>Email notifications</li>
+        <li>Monitors links within your site and links to external sites</li>
+    </ul>
+
+    <h4>200 requests per site per day free.</h4>
+    <button class="large">Get Started</button>
+
+</div>
 
 {% endblock %}
