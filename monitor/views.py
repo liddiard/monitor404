@@ -146,6 +146,7 @@ class UserPrefsView(SidebarView):
     def get_context_data(self, **kwargs):
         context = super(UserPrefsView, self).get_context_data(**kwargs)
         prefs = UserPrefs.objects.get_or_create(user=self.request.user)[0]
+        context['user_prefs'] = prefs
         context['form'] = UserPrefsForm(instance=prefs)
         return context
 

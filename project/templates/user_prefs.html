@@ -7,6 +7,7 @@
 <h1>Preferences</h1>
 <form class="medium" method="post" action="">{% csrf_token %}
     {{ form }}
+    <p>Plan: <strong>{{ user_prefs.plan.name }}</strong>&emsp;<a href="{% url 'plan_compare' %}">Compare Plans</a></p>
     <input type="submit" class="button" value="Save"/>
 </form>
 
