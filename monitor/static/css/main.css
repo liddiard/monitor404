@@ -144,6 +144,8 @@ span.helptext {
   display: inline-block;
   text-align: left;
   margin-bottom: 1em; }
+  .step p {
+    margin-top: 1em; }
   .step .title {
     float: left;
     margin-right: 0.5em; }
