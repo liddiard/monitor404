@@ -191,7 +191,7 @@ class ChangePlansView(SidebarView):
         return context
 
 
-class ChargeView(SidebarView):
+class ChargeView(View):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
