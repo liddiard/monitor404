@@ -1,0 +1,12 @@
+{% extends "base_sidebar.html" %}
+{% load humanize %}
+
+{% block title %}Plan Changed | monitor404{% endblock %}
+
+{% block primary_content %}
+
+<h1>Plan Changed</h1>
+<p>Your plan was successfully changed to {{ user_prefs.plan.name }}! Your new daily limit of <strong>{{ user_prefs.plan.max_requests|intcomma }}</strong> link checks per site has gone into effect immediately.</p>
+<p>Go to your <a href="{% url 'log' %}">dashboard</a>.</p>
+
+{% endblock %}

@@ -207,7 +207,6 @@ class ChargeView(SidebarView):
             subscription = customer.subscriptions.retrieve(subscription_id)
             subscription.plan = stripe_plan
             subscription.save()
-            print subscription
         else:
             token = request.POST.get('stripeToken')
             try:
@@ -225,12 +224,22 @@ class ChargeView(SidebarView):
                 customer_id = customer['subscriptions']['data'][0]['customer']
                 user_prefs.customer = customer_id
                 user_prefs.save()
-                print customer_id
-
         p = Plan.objects.get(name__iexact=plan)
         user_prefs.plan = p
         user_prefs.save()
-        return 0
+        return redirect('plan_charge_success')
+
+
+class ChargeSuccessView(TemplateView):
+
+    template_name = "plan_charge_success.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ChargeSuccessView, self).get_context_data(**kwargs)
+        context['user_prefs'] = UserPrefs.objects\
+                                    .get_or_create(user=self.request.user)[0]
+        print context
+        return context
 
 
 class DocsView(TemplateView):
