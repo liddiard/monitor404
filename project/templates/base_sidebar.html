@@ -4,7 +4,7 @@
     
 <div class="fullwidth row">
 
-    <aside class="small-3 large-2 column">
+    <aside class="hide-for-small medium-3 large-2 column">
         <h4 id="your-sites">Your Sites</h4>
         <a class="subtle" href="{% url 'site_add' %}">&plus;&nbsp;add&nbsp;site</a>
         <ul class="side-nav">
@@ -14,7 +14,7 @@
         </ul>
     </aside>
 
-    <div class="primary small-9 large-10 column">
+    <div class="primary small-12 medium-9 large-10 column">
         {% if messages %}
             {% for message in messages %}
                 <div data-alert class="alert-box {{ message.tags }}">
@@ -25,6 +25,16 @@
         {% endif %}
         
         {% block primary_content %}{% endblock %}
+    </div>
+
+    <div class="column show-for-small-only">
+        <hr/>
+        <select onchange="if (this.value) window.location.href=this.value">
+        {% for s in sites %}
+            <option value="">Select a site.</option>
+            <option value="{% url 'log' s.slug %}">{{ s.host }}</option>
+        {% endfor %}
+        </select>
     </div>
 
 </div>

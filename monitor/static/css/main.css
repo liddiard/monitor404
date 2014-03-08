@@ -26,6 +26,9 @@ table.log {
     table.log th.headerSortDown {
       background-image: url(../img/desc.gif);
       background-color: #eaeaea; }
+  @media (max-width: 640px) {
+    table.log th, table.log td {
+      font-size: 10px; } }
 
 form.medium {
   max-width: 300px; }

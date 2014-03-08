@@ -16,7 +16,7 @@
     <h1 class="table">{{ site.host }} <span class="quota label {% if site.is_eligible %}secondary{% else %}alert{% endif %}"><strong>{{ site.requests_today|intcomma }}</strong>&#8202;/&#8202;{{ site.max_requests|intcomma }} requests today</span></h1>
 
     <div class="management">
-        <a class="subtle remove-site" href="{% url 'site_remove' site.slug %}">&times; remove site</a>
+        <a class="subtle remove-site" href="{% url 'site_remove' site.slug %}">&times;&nbsp;remove&nbsp;site</a>
         <button class="small log-clear">Clear Log</button>
     </div>
 
