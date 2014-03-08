@@ -30,10 +30,10 @@
     <div class="column show-for-small-only">
         <hr/>
         <select onchange="if (this.value) window.location.href=this.value">
-        {% for s in sites %}
-            <option value="">Select a site.</option>
+            <option value="">Select a site</option>
+            {% for s in sites %}
             <option value="{% url 'log' s.slug %}">{{ s.host }}</option>
-        {% endfor %}
+            {% endfor %}
         </select>
     </div>
 
