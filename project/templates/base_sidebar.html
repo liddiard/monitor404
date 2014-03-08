@@ -34,6 +34,7 @@
             {% for s in sites %}
             <option value="{% url 'log' s.slug %}">{{ s.host }}</option>
             {% endfor %}
+            <option value="{% url 'site_add' %}">Add site&hellip;</option>
         </select>
     </div>
 
