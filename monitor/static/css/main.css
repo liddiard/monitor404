@@ -1,7 +1,3 @@
-aside {
-  background: #f6f6f6;
-  padding: 2em; }
-
 a.warning {
   color: red; }
 a.forgot-password {
@@ -9,8 +5,13 @@ a.forgot-password {
   margin-top: -1em;
   display: block; }
 
+aside {
+  background: #f6f6f6;
+  padding: 2em; }
+
 footer {
   float: right;
+  clear: both;
   text-align: right;
   font-size: 0.7em;
   color: gray;
