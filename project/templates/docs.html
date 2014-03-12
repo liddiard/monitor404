@@ -47,7 +47,7 @@
         <p>Note that your site name should include a subdomain if it has one. For example, if your site is on www.reddit.com, include the &ldquo;www&rdquo;. The domain name you enter should be equal to the output of running <code>window.location.host</code> in JavaScript on your site.</p>
         <h3>Including the script</h3>
         <p>To monitor links on a page, include the following script anywhere on the page:</p> 
-        <pre><code>&lt;script src="http://monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;</pre></code>
+        <pre><code>&lt;script src="//monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;</pre></code>
         <p>The script requires <a href="http://jquery.com/">jQuery</a>, which you should also load somewhere on the page. It's tested with jQuery version 1.10.2 but will probably work with other versions.</p>
         <p>That's it! monitor404 will check all links on which a user clicks for 404 errors. It will log errors in the <a href="{% url 'log' %}">dashboard</a> and, by default, send you an email if it finds a broken link. If you only want to monitor certain kinds of links, refer to the <a href="#settings">next section</a>.</p>
 
