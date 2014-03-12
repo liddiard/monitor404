@@ -35,13 +35,13 @@
 
         <h2>Getting Started</h2>
         <p>
-            There are three steps to setting up your site with monitor404:
+            There are two steps to setting up your site with monitor404:
             <ol>
                 <li><a href="#adding-a-site">Add your site</a> to the monitor404 dashboard.</li>
                 <li><a href="#including-the-script">Include the script</a> on the pages you want to monitor.</li>
-                <li><a href="#settings">Configure which links</a> on pages you want to be monitor. (optional &ndash; all are monitored by default.)</li>
             </ol>
         </p>
+        <p>Once you're set up, you can optionally <a href="#settings">configure which links you want to monitor</a> on pages. (All are monitored by default.)</p>
         <h3>Adding a site</h3>
         <p>To add a site, go to the <a href="{% url 'site_add' %}">&ldquo;Add Site&rdquo; dialog</a> and enter the domain name of your site.</p>
         <p>Note that your site name should include a subdomain if it has one. For example, if your site is on www.reddit.com, include the &ldquo;www&rdquo;. The domain name you enter should be equal to the output of running <code>window.location.host</code> in JavaScript on your site.</p>
