@@ -102,9 +102,10 @@ The monitor404 team
 def check_404(source, destination, sites):
     eligible_site = False
     for site in sites:
-        if site.is_eligible():
+        if site.is_eligible(): 
             eligible_site = True
-            break
+            site.requests_today += 1
+            site.save()
     if not eligible_site:
         print -3
         return -3 # no eligible sites
@@ -130,9 +131,7 @@ def check_404(source, destination, sites):
 
     if is_404(destination):
         for site in sites:
-            if site.is_eligible():
-                site.requests_today += 1
-                site.save()
+            if site.is_eligible(): # there's >0 eligible sites if we get here
                 error, created = LogEntry.objects.get_or_create(site=site, 
                                                              source_url=source, 
                                                    destination_url=destination)
