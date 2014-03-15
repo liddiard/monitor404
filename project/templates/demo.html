@@ -3,6 +3,13 @@
 {% block content %}
 
     <script src="{{ STATIC_URL }}js/monitor404.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#dont-go-up').click(function(event){
+                event.preventDefault();
+            });
+        });
+    </script>
     
     <a href="http://imdb.com/">imdb (200)</a>
     <a href="http://imdb.com/aweeofj2f/af">imdb (404)</a>
@@ -10,5 +17,9 @@
     <code>
        &lt;script src=&quot;http://monitor404.s3.amazonaws.com/monitor404.min.js&quot;&gt;&lt;/script&gt;
     </code>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <a id="dont-go-up" href="#">Don't go up</a>
 
 {% endblock %}

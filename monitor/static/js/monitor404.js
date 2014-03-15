@@ -13,8 +13,8 @@ $(document).ready(function(){
     var selector = $(_404_SETTINGS.include).not(_404_SETTINGS.exclude);
     /* end settings */
 
-    selector.click(function(event){
-        var destination = $(this).prop('href');
+    selector.click(function(event){ 
+        var destination = $(this).attr('href');
 
         /* don't do anything if the url starts with a hash or is empty */
         if (destination[0] === '#' || destination.length === 0)
