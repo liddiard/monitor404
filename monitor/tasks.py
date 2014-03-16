@@ -106,6 +106,10 @@ def check_404(source, destination, sites):
             eligible_site = True
             site.requests_today += 1
             site.save()
+            if not site.is_eligible(): # site just reached quota
+                prefs = UserPrefs.objects.get_or_create(user=site.user)[0]
+                if prefs.email_quota:
+                    send_quota_email(site)
     if not eligible_site:
         print -3
         return -3 # no eligible sites
@@ -141,10 +145,6 @@ def check_404(source, destination, sites):
                         send_error_email(source, destination, site)
                 else: # it already existed
                     error.save()
-                if not site.is_eligible(): # site just reached quota
-                    prefs = UserPrefs.objects.get_or_create(user=site.user)[0]
-                    if prefs.email_quota:
-                        send_quota_email(site)
         print 1
         return 1 # url 404'd!
     else:
