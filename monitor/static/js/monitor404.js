@@ -14,10 +14,11 @@ $(document).ready(function(){
     /* end settings */
 
     selector.click(function(event){ 
-        var destination = $(this).attr('href');
+        var url = $(this).attr('href'); // the literal text of the 'href' property
+        var destination = $(this).prop('href'); // the full url of where the link goes
 
         /* don't do anything if the url starts with a hash or is empty */
-        if (destination[0] === '#' || destination.length === 0)
+        if (url[0] === '#' || url.length === 0)
             return;
 
         /* don't do anything else if the origin setting doesn't match */
