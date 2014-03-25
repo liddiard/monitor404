@@ -39,7 +39,7 @@
     <hr/>
 
     <h3>How does monitor404 work?</h3>
-    <p>Whenever a user clicks on a link on your site, the monitor404.js script sends a request to the monitor404 server. monitor404 asyncronously checks the link (by issuing a HEAD request) to determine if it's valid. monitor404 caches link checks to minimize load on frequently clicked links. The script is completely invisible to the user and optionally configurable to only monitor certain links.</p>
+    <p>Whenever a user clicks on a link on your site, the monitor404.js script sends a request to the monitor404 server. monitor404 checks the link asyncronously by issuing a HEAD request to the URL to determine if it's valid. monitor404 caches link checks to minimize load on frequently clicked links. The script is completely invisible to the end user and configurable to only monitor certain links.</p>
     <p>Check out the <a href="{% url 'docs' %}">documentation</a> for more details.</p>
 
     <h2>Plans</h2>
