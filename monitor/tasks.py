@@ -111,7 +111,6 @@ def check_404(source, destination, sites):
                 if prefs.email_quota:
                     send_quota_email(site)
     if not eligible_site:
-        print -3
         return -3 # no eligible sites
 
     destination_host = urlparse(destination).netloc
@@ -121,7 +120,6 @@ def check_404(source, destination, sites):
             site_to_skip = True
             break
     if site_to_skip:
-        print -2
         return -2 # site is stored in db as one to skip
 
     check, created = URLCheck.objects.get_or_create(url=destination)
@@ -130,7 +128,6 @@ def check_404(source, destination, sites):
             check.save() # update the check with the current time
                          # because we're going to check it next...
         else:
-            print -1
             return -1 # url check is fresh; no further processing required
 
     if is_404(destination):
@@ -145,8 +142,6 @@ def check_404(source, destination, sites):
                         send_error_email(source, destination, site)
                 else: # it already existed
                     error.save()
-        print 1
         return 1 # url 404'd!
     else:
-        print 0
         return 0 # check performed b/c it wasn't cached
