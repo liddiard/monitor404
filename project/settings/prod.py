@@ -7,7 +7,7 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-REGISTRATION_OPEN = False
+REGISTRATION_OPEN = True
 
 # static files
 
