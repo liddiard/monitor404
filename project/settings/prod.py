@@ -23,9 +23,3 @@ MANDRILL_API_KEY = os.environ['MANDRILL_API_KEY']
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
 DEFAULT_FROM_EMAIL = "monitor404 <no-reply@monitor404.com>"
-
-
-# celery
-
-BROKER_POOL_LIMIT = 3 # free limit for heroku cloudamqp
-BROKER_URL = "amqp://ifsbtoee:--ys_82WsJPbKJPMWX23bCT_8MKzYGvf@tiger.cloudamqp.com/ifsbtoee"
