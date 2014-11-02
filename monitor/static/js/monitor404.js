@@ -35,7 +35,7 @@ $(document).ready(function(){
         var timer_id;
         ajaxGet(
             {source: source, destination: destination},
-            'https://monitor404.com/api/check/',
+            'http://monitor404.herokuapp.com/api/check/',
             function(response) {
                 if (timer_id)
                     window.clearTimeout(timer_id);
