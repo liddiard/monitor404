@@ -106,6 +106,7 @@ TEMPLATES = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 # celery
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 BROKER_URL = 'django://'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
