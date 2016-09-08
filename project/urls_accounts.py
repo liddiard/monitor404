@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 
 from registration.backends.default.views import RegistrationView
@@ -9,7 +9,7 @@ class RegistrationViewUniqueEmail(RegistrationView):
     form_class = RegistrationFormUniqueEmail
 
 
-urlpatterns = patterns('',
+urlpatterns = [
 
       # override the default urls
       url(r'^register/$', RegistrationViewUniqueEmail.as_view(),
@@ -39,4 +39,4 @@ urlpatterns = patterns('',
 
       # and now add the registration urls
       url(r'', include('registration.backends.default.urls')),
-)
+]

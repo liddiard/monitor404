@@ -1,11 +1,11 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from django.contrib import admin
 admin.autodiscover()
 
 from monitor import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     # api
     url(r'^api/check/$', views.MonitorView.as_view()),
     url(r'^api/log/clear/$', views.ClearLogView.as_view()),
@@ -28,5 +28,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # registration
-    (r'^accounts/', include('project.urls_accounts')),
-)
+    url(r'^accounts/', include('project.urls_accounts')),
+]
