@@ -50,11 +50,10 @@
         <h3>Including the script</h3>
         <p>To monitor links on a page, include the following script anywhere on the page:</p> 
         <pre><code>&lt;script src="//monitor404.s3.amazonaws.com/monitor404.min.js"&gt;&lt;/script&gt;</pre></code>
-        <p>The script <strong>requires <a href="http://jquery.com/">jQuery</a></strong>, which you should also load somewhere on the page. It's tested with jQuery version 1.10.2 but should work with other versions.</p>
         <p>That's it! monitor404 will check all links on which a user clicks for 404 errors. It will log errors in the <a href="{% url 'log' %}">dashboard</a> and, by default, send you an email if it finds a broken link. If you only want to monitor certain kinds of links, refer to the <a href="#settings">&ldquo;Settings&rdquo; section</a>.</p>
 
         <h2>Settings</h2>
-        <p>monitor404 lets you customize which links it monitors using jQuery selectors and same-origin/different-origin rules. By default, monitor404 will check all links for 404 errors. However in certain cases, you may only wish to monitor a subset.</p>
+        <p>monitor404 lets you customize which links it monitors using DOM element selectors and same-origin/different-origin rules. By default, monitor404 will check all links for 404 errors. However in certain cases, you may only wish to monitor a subset.</p>
         <p>For example, you may already have logging or notifications set up on your server for HTTP 404 errors and only want to monitor links that go to external websites for errors. Or, you may run a blog and want to make sure all links in your posts stay working, but not really care if links in user-submitted comments break.</p>
         <p>To change any of these settings, define a JavaScript object variable on <code>window</code> named <code>_404_SETTINGS</code> anywhere before <code>$(document).ready()</code> fires. (Note the leading underscore on the variable name because JavaScript doesn't allow variables to start with a numeral.)
         <p>Below is an example configuration using all settings, after which each setting is described in detail.</p>
@@ -68,18 +67,18 @@
         <h3><code>include</code></h3>
         <div class="setting panel">
             <strong>Default:</strong> <code>'a'</code> (all links)<br/>
-            <strong>Format:</strong> string for a jQuery selector<br/>
+            <strong>Format:</strong> string for a CSS selector<br/>
             <strong>Constraints:</strong> must select <code>&lt;a&gt;</code> elements only
         </div>
-        <p><code>include</code> controls which links are monitored for 404 errors. If not defined, all links will be monitored. If defined, any selector you would use in jQuery (i.e. put inside a <code>$()</code>) is valid, as long as it selects link elements only. Trying to monitor links on non-link elements would be pointless, and it results in an error.</p>
+        <p><code>include</code> controls which links are monitored for 404 errors. If not defined, all links will be monitored. If defined, any selector you can use in a <code>document.querySelector</code> call is valid, as long as it selects link elements only. Trying to monitor links on non-link elements would be pointless, and it results in an error.</p>
 
         <h3><code>exclude</code></h3>
         <div class="setting panel">
             <strong>Default:</strong> <code>''</code> (no links)<br/>
-            <strong>Format:</strong> string for a jQuery selector<br/>
+            <strong>Format:</strong> string for a CSS selector<br/>
             <strong>Constraints:</strong> none
         </div>
-        <p>From the links that are included, <code>exclude</code> determines which to omit from monitoring. No links are excluded by default. As with <code>include</code>, any jQuery selector is valid.</p>
+        <p>From the links that are included, <code>exclude</code> determines which to omit from monitoring. No links are excluded by default. As with <code>include</code>, any <code>document.querySelector</code> selector is valid.</p>
 
         <h3><code>origin</code></h3>
         <div class="setting panel">
@@ -132,7 +131,7 @@ message: "UserSite matching host \"example.com\" was not found."}</pre></code>
                 <li>You have a JavaScript error on the page which is preventing the monitor404 script from working properly.</li>
             </ol>
         </p>
-        <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the <a href="#settings">jQuery selectors and/or origin rules</a> you're using to make sure the desired links are included.</p>
+        <p>The solution to #1 is simple: make sure the script is included on the page. If it is, you can check #2 by seeing if you have a <code>_404_SETTINGS</code> variable defined to selectively include/exclude links on the page. If this variable is defined, check the <a href="#settings">CSS selectors and/or origin rules</a> you're using to make sure the desired links are included.</p>
         <p>If both of the above check out, you may have a JavaScript error on the page. To check, open Chrome Developer Tools (or equivalent in other browsers), and go to the &ldquo;Console&rdquo; tab. Fix any JavaScript errors that are present there.</p>
 
         <h2>FAQ</h2>
