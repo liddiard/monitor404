@@ -21,12 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$^vvj9ebxv%)o(%z*02hws#!94d0i94po3@fuqx4*1mxzb4er)'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'monitor404.com']
 
@@ -44,12 +42,10 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'south',
     'corsheaders',
     'timezone_field',
     'djcelery',
     'kombu.transport.django',
-    'djrill',
     'registration'
 )
 
@@ -92,13 +88,19 @@ SERVER_EMAIL = "error@monitor404.com"
 
 ADMINS = ('omniaura5@gmail.com',)
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-TEMPLATE_DIRS = (
-    BASE_DIR+'/templates',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+            ],
+        },
+    },
+]
 
 # corsheaders
 CORS_ORIGIN_ALLOW_ALL = True
