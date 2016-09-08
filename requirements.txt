@@ -4,7 +4,7 @@ billiard==3.3.0.23
 celery==3.1.23
 dj-database-url==0.4.1
 Django==1.10.1
-django-celery==3.1.17
+django-celery==3.2.0a1
 django-cors-headers==1.1.0
 django-registration==2.1.2
 django-timezone-field==2.0rc1
