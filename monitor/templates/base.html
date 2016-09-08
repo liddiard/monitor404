@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +7,16 @@
     <meta name="description" content="{% block meta_description %}Easy-to-implement HTTP 404 error monitoring service with logging and notifications. Automatically check internal and external links. No backend configuration.{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>{% block title %}monitor404: simple HTTP 404 error monitoring for your website{% endblock %}</title>
-    <link rel="icon" href="{{ STATIC_URL }}img/favicon.ico">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
     <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/css/foundation.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ STATIC_URL }}css/main.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.11/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.3/js/foundation.min.js"></script>
-    <!--<script src="{{ STATIC_URL }}js/monitor404.js"></script>-->
-    <script src="{{ STATIC_URL }}js/jquery.tablesorter.min.js"></script>
-    <script src="{{ STATIC_URL }}js/main.js"></script>
+    <!--<script src="{% static 'js/monitor404.js' %}"></script>-->
+    <script src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
 <script>
@@ -24,7 +26,7 @@
 <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
-      <h1><a href="{% url 'front' %}"><img alt="monitor404" src="{{ STATIC_URL }}img/banner_darkbg.svg"/></a></h1>
+      <h1><a href="{% url 'front' %}"><img alt="monitor404" src="{% static 'img/banner_darkbg.svg' %}"/></a></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
   </ul>

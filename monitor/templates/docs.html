@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Documentation | monitor404{% endblock %}
 
 {% block content %}
 
-<link rel="stylesheet" href="{{ STATIC_URL }}css/monokai_sublime.css"/>
-<script src="{{ STATIC_URL }}js/highlight.pack.js"></script>
-<script src="{{ STATIC_URL }}js/anchorific.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/monokai_sublime.css' %}"/>
+<script src="{% static 'js/highlight.pack.js' %}"></script>
+<script src="{% static 'js/anchorific.min.js' %}"></script>
 <script>
     $(document).ready(function(){
         $('.primary').anchorific();

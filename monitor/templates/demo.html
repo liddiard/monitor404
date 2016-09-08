@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 
-    <script src="{{ STATIC_URL }}js/monitor404.js"></script>
+    <script src="{% static 'js/monitor404.js' %}"></script>
     <script>
         $(document).ready(function(){
             $('#dont-go-up').click(function(event){

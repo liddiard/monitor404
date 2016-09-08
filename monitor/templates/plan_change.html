@@ -1,15 +1,16 @@
 {% extends "base_sidebar.html" %}
 {% load humanize %}
+{% load static %}
 
 {% block title %}Change Plan | monitor404{% endblock %}
 
 {% block primary_content %}
 
-<link rel="stylesheet" href="{{ STATIC_URL }}css/creditly.css">
+<link rel="stylesheet" href="{% static 'css/creditly.css' %}">
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-<script src="{{ STATIC_URL }}js/creditly.js"></script>
+<script src="{% static 'js/creditly.js' %}"></script>
 <script>
 $(document).ready(function(){
     Stripe.setPublishableKey('pk_test_o41iwtQNmvQuGl4Vses2r1fa');
